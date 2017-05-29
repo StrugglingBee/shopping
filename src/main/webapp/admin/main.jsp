@@ -19,16 +19,17 @@
 
     <script type="text/javascript" src="/js/jquery.js"></script>
     <script type="text/javascript" src="/js/easyui.js"></script>
+    <script type="text/javascript" src="/ckeditor/ckeditor.js"></script>
     <script type="text/javascript">
         //初始化操作。
         function init() {
             <%--//获取管理员拥有的权限数量--%>
-            <%--var x=${privileges.size()};--%>
+            <%--var x=${roles.size()};--%>
             <%--//如果数量大于1就显示弹窗--%>
             <%--if(x>1){--%>
                 <%--$("#main-alert").window("open");//让弹窗显示--%>
             <%--}else if(x==1){--%>
-                <%--loaddata(${privileges.get(0).pid});--%>
+                <%--loaddata(${roles.get(0).rid});--%>
             <%--}--%>
             loaddata(1);
 
@@ -91,7 +92,7 @@
 </div>
 
 <!-- 添加弹窗 -->
-<div id="main-alert" class="easyui-window" data-options="closed:true,modal:true">
+<div id="main-alert" class="easyui-window" data-options="closed:true,modal:true,title:'请选择一个角色'">
     <h3>您有多个角色身份</h3>
     <h3>请选择一个角色进入工作页面</h3>
     <div class="input-group">

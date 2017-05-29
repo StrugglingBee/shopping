@@ -1,7 +1,7 @@
 package com.shoppingkitten.dao;
 
 import com.shoppingkitten.entity.Manager;
-import com.shoppingkitten.entity.Privilege;
+import com.shoppingkitten.entity.Role;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
@@ -9,8 +9,8 @@ import java.util.HashMap;
 
 @Repository
 public interface ManagerDao {
-    //根据管理员查找权限
-    ArrayList<Privilege> findPrivilegeByManager(Manager manager);
+    //根据管理员查找角色
+    ArrayList<Role> findRolesByManager(Manager manager);
     //查询所有的管理员有多少个
     int findAllManager();
     //分页查询

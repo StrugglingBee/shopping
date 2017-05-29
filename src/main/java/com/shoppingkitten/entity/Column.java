@@ -5,10 +5,17 @@ import java.io.Serializable;
 import java.lang.String;
 
 public class Column implements Serializable{
-	public int id;
-	public String name;
-	public int pid;
+	private int id;
+	private String name;
+	private int pid;
+	private int counts;
+	public int getCounts() {
+		return counts;
+	}
 
+	public void setCounts(int counts) {
+		this.counts = counts;
+	}
 	public Column() {
 	}
 
@@ -42,4 +49,7 @@ public class Column implements Serializable{
 	public void setPid(int pid) {
 		this.pid = pid;
 	}
+
+
+
 }

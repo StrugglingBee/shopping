@@ -42,10 +42,9 @@
     <update id="updateManager">
         UPDATE manager set account=#{account},pwd=#{pwd},phone=#{phone},id_code=#{id_code},nick_name=#{nick_name} where mid=#{mid}
     </update>
-    <!--根据管理员查找权限-->
-    <select id="findPrivilegeByManager" resultType="com.shoppingkitten.entity.Privilege">
-        SELECT p.* FROM privilege p LEFT JOIN role_privilege USING(pid)
-        LEFT JOIN role USING(rid) LEFT JOIN manager_role USING(rid)
+    <!--根据管理员查找拥有的角色-->
+    <select id="findRolesByManager" resultType="com.shoppingkitten.entity.Role">
+        SELECT r.* FROM role r LEFT JOIN manager_role USING(rid)
         LEFT JOIN manager USING(mid) where account=#{account} and pwd=#{pwd}
     </select>
 

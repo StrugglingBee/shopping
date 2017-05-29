@@ -23,15 +23,19 @@
         select r.* from resource r left join role_resource rr USING(resource_id) where rr.rid=#{rid}
     </select>
 
-    <!--添加角色-->
-    <insert id="addResource">
+    <!--添加资源同级-->
+    <insert id="addResource1">
         INSERT INTO resource(text,url,parent_id) VALUES(#{text},#{url},#{parent_id})
     </insert>
-    <!--更新角色-->
+    <!--添加资源子级-->
+    <insert id="addResource2">
+        INSERT INTO resource(text,url,parent_id) VALUES(#{text},#{url},#{resource_id})
+    </insert>
+    <!--更新资源-->
     <update id="updateResource">
         UPDATE resource set text=#{text},url=#{url} where resource_id=#{resource_id}
     </update>
-    <!--删除角色-->
+    <!--删除资源-->
     <delete id="deleteResources" parameterType="int">
         delete from resource where resource_id in
         <foreach collection="list" item="resource_id" open="(" separator="," close=")">
