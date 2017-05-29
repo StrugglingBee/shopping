@@ -28,7 +28,11 @@
 
   <!--根据账号查询用户-->
   <select id="searchUserByAccount" resultType="com.shoppingkitten.entity.User">
-    SELECT * FROM user WHERE account=#{account}
+    SELECT * FROM user WHERE account LIKE "%"#{account}"%"
+  </select>
+  <!--根据姓名查询账户-->
+  <select id="searchUserByName" resultType="com.shoppingkitten.entity.User">
+    SELECT * FROM user WHERE name LIKE "%"#{name}"%"
   </select>
   <!--查询用户总数-->
   <select id="findUserCounts" resultType="int">

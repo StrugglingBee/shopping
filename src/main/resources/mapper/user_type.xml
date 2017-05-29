@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.shoppingkitten.dao.User_TypeDao">
+    <!--查询所有的会员类型-->
+    <select id="findAllUserType" resultType="com.shoppingkitten.entity.User_type">
+        select * from user_type;
+    </select>
+    <!--添加新会员类型-->
+    <insert id="saveUserType" >
+        INSERT INTO user_type (type_name,integral_start,integral_end,menber_power)VALUES
+        (#{type_name},#{integral_start},#{integral_end},#{menber_power})
+    </insert>
+    <!--修改会员类型-->
+    <update id="updateUserType" >
+        UPDATE user_type SET type_name=#{type_name},integral_start=#{integral_start},
+        integral_end=#{integral_end},menber_power=#{menber_power} WHERE tid=#{tid}
+    </update>
+    <!--删除会员的类型-->
+    <delete id="removeUserType" >
+        DELETE FROM user_type WHERE tid IN
+        <foreach collection="list" item="tid"  open="(" separator="," close=")">
+            #{tid}
+        </foreach>
+    </delete>
+</mapper>

@@ -1,6 +1,8 @@
 package com.shoppingkitten.controller;
 
+import com.shoppingkitten.entity.Manager;
 import com.shoppingkitten.entity.User;
+import com.shoppingkitten.entity.User_type;
 import com.shoppingkitten.service.UserService;
 import com.shoppingkitten.utils.Encryption;
 import org.springframework.stereotype.Controller;
@@ -12,10 +14,7 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Random;
+import java.util.*;
 
 @Controller
 public class UserController {
@@ -168,12 +167,66 @@ public class UserController {
         System.out.println(user.toString());
         return 1;
     }
-    @RequestMapping("searchUserByAccount.do")
+    @RequestMapping("findAllUserType.do")
     @ResponseBody
-    public ArrayList<User> searchUserByAccount(@RequestBody String account){
-        account=account.replace("=","");
-        System.out.println(account);
-        return us.searchUserByAccount(account);
+    public ArrayList<User_type> findAllUserType(){
+        return us.findAllUserType();
+    }
+    //查询用户
+    @RequestMapping("searchUser.do")
+    @ResponseBody
+    public ArrayList<User> searchManager(String type, String value){
+        ArrayList<User> rs=null;
+        if (value!=null&&type!=null){
+            //判断按什么字段查找
+            switch (type){
+                case "account"://按照账号搜索
+                    value="%"+value+"%";
+                    rs=us.searchUserByAccount(value);
+                    break;
+                case "name"://按照姓名搜索
+                    value="%"+value+"%";
+                    rs=us.searchUserByName(value);
+                    break;
+//                case "phone"://按照电话搜索
+//                    value="%"+value+"%";
+//                    rs=ms.findManagerByPhone(value);
+//                    break;
+//                case "id_code"://按照身份证号搜索
+//                    value="%"+value+"%";
+//                    rs=ms.findManagerById_code(value);
+//                    break;
+            }
+        }
+        return rs;
+    };
+    //添加一个会员类型
+
+    @RequestMapping("saveUserType.do")
+    @ResponseBody
+    public int saveUserType(User_type user_type) {
+        System.out.println(user_type.toString());
+        if (user_type.getTid()==0) {
+            int rs = us.saveUserType(user_type);
+            return rs;
+        }else {
+            int rs=us.updateUserType(user_type) ;
+            return rs;
+        }
+    }
+    @RequestMapping("removeUserType.do")
+    @ResponseBody
+    public int removeUserType(@RequestBody List<Integer> list ){
+        for (Integer i:list
+                ) {
+            System.out.println(i);
+        }
+        int rs=0;
+        if(list!=null){
+            ArrayList<Integer> mids=(ArrayList<Integer>)list;
+            rs=us.removeUserType(mids);
+        }
+        return rs;
     }
  }
 
