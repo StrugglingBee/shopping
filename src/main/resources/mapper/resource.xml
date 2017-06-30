@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.shoppingkitten.dao.ResourceDao">
+
+    <!--查询所有的节点-->
+    <select id="findAllResource" resultType="com.shoppingkitten.entity.Resource2">
+        select * from resource
+    </select>
+
+    <!--根据权限ID查找根节点资源-->
+    <select id="findResourceByprivilege" resultType="com.shoppingkitten.entity.Resource2">
+        select r.* from resource r left join privilege_resource pr on r.resource_id=pr.resource_id where pr.pid=#{pid} and r.parent_id=0
+    </select>
+    <!--根据父节点查找子节点资源-->
+    <select id="findResourceByPid" resultType="com.shoppingkitten.entity.Resource2">
+        select * from resource where parent_id=#{parent_id}
+    </select>
+
+    <!--根据角色ID查找拥有的资源资源-->
+    <select id="findResourceByRoleID" resultType="com.shoppingkitten.entity.Resource2">
+        select r.* from resource r left join role_resource rr USING(resource_id) where rr.rid=#{rid}
+    </select>
+
+    <!--添加角色-->
+    <insert id="addResource">
+        INSERT INTO resource(text,url,parent_id) VALUES(#{text},#{url},#{parent_id})
+    </insert>
+    <!--更新角色-->
+    <update id="updateResource">
+        UPDATE resource set text=#{text},url=#{url} where resource_id=#{resource_id}
+    </update>
+    <!--删除角色-->
+    <delete id="deleteResources" parameterType="int">
+        delete from resource where resource_id in
+        <foreach collection="list" item="resource_id" open="(" separator="," close=")">
+            #{resource_id}
+        </foreach>
+    </delete>
+
+    <!--根据名称搜索-->
+    <select id="findResourceByText" parameterType="String" resultType="com.shoppingkitten.entity.Resource2">
+        SELECT * FROM  resource WHERE text LIKE #{text}
+    </select>
+
+    <!--根据url搜索-->
+    <select id="findResourceByUrl" parameterType="String" resultType="com.shoppingkitten.entity.Resource2">
+        SELECT * FROM  resource WHERE url LIKE #{url}
+    </select>
+</mapper>

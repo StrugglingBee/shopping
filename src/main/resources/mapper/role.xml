@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.shoppingkitten.dao.RoleDao">
+    <!--查询所有的角色-->
+    <select id="findAllRole" resultType="com.shoppingkitten.entity.Role">
+        SELECT * FROM role
+    </select>
+    <!--通过账号ID查找拥有的所有角色-->
+    <select id="findRoleByManagerID" parameterType="int" resultType="com.shoppingkitten.entity.Role">
+        SELECT r.* FROM role r LEFT JOIN manager_role mr USING (rid) WHERE mr.mid=#{mid}
+    </select>
+
+    <!--分页查询角色-->
+    <select id="findRoleByLimit" parameterType="map" resultType="com.shoppingkitten.entity.Role">
+        select * from role limit #{start},#{max}
+    </select>
+    <!--查询所有的角色数据有多少条-->
+    <select id="findRoleCount" resultType="int">
+        select count(rid) from role
+    </select>
+    <!--添加角色-->
+    <insert id="addRole">
+        INSERT INTO role(name) VALUES(#{name})
+    </insert>
+    <!--更新角色-->
+    <update id="updateRole">
+        UPDATE role set name=#{name} where rid=#{rid}
+    </update>
+    <!--删除角色-->
+    <delete id="deleteRoles" parameterType="int">
+        delete from role where rid in
+        <foreach collection="list" item="rid" open="(" separator="," close=")">
+            #{rid}
+        </foreach>
+    </delete>
+    <!--根据名称搜索-->
+    <select id="findRoleByName" parameterType="String" resultType="com.shoppingkitten.entity.Role">
+        SELECT * FROM  role WHERE name LIKE #{name}
+    </select>
+
+
+    <!--根据角色ID删除拥有的权限-->
+    <delete id="delectPrivilegeByRoleID">
+        DELETE FROM role_privilege WHERE rid=#{rid}
+    </delete>
+
+    <!--分配权限，批量存入角色_权限对应数据-->
+    <insert id="insertPrivilegeByRoleID">
+        INSERT INTO role_privilege VALUES
+        <foreach collection="list" item="map" separator=",">
+            (#{map.rid},${map.pid})
+        </foreach>
+    </insert>
+
+    <!--根据角色ID删除拥有的资源-->
+    <delete id="delectResourceByRoleID">
+        DELETE FROM role_resource WHERE rid=#{rid}
+    </delete>
+
+    <!--分配权限，批量存入角色_权限对应数据-->
+    <insert id="insertResourceByRoleID">
+        INSERT INTO role_resource VALUES
+        <foreach collection="list" item="map" separator=",">
+            (#{map.rid},${map.resource_id})
+        </foreach>
+    </insert>
+</mapper>

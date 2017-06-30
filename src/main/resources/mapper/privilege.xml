@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.shoppingkitten.dao.PrivilegeDao">
+    <!--查找说有的权限-->
+    <select id="findAllPrivilege" resultType="com.shoppingkitten.entity.Privilege">
+        select * from privilege
+    </select>
+    <!--通过角色ID查找拥有的所有权限-->
+    <select id="findPrivilegeByRoleID" parameterType="int" resultType="com.shoppingkitten.entity.Privilege">
+        SELECT p.* FROM privilege p LEFT JOIN role_privilege rp USING (pid) WHERE rp.rid=#{rid}
+    </select>
+    <!--分页查询权限-->
+    <select id="findPrivilegeByLimit" parameterType="map" resultType="com.shoppingkitten.entity.Privilege">
+        select * from privilege limit #{start},#{max}
+    </select>
+    <!--查询所有的角色数据有多少条-->
+    <select id="findPrivilegeCount" resultType="int">
+        select count(pid) from privilege
+    </select>
+
+    <!--添加权限-->
+    <insert id="addPrivilege">
+        INSERT INTO privilege(p_name,p_remark) VALUES(#{p_name},#{p_remark})
+    </insert>
+    <!--更新权限-->
+    <update id="updatePrivilege">
+        UPDATE privilege set p_name=#{p_name},p_remark=#{p_remark} where pid=#{pid}
+    </update>
+    <!--删除权限-->
+    <delete id="deletePrivileges" parameterType="int">
+        delete from privilege where pid in
+        <foreach collection="list" item="pid" open="(" separator="," close=")">
+            #{pid}
+        </foreach>
+    </delete>
+
+    <!--根据名称搜索-->
+    <select id="findPrivilegeByp_name" parameterType="String" resultType="com.shoppingkitten.entity.Privilege">
+        SELECT * FROM  privilege WHERE p_name LIKE #{p_name}
+    </select>
+
+    <!--根据备注搜索-->
+    <select id="findPrivilegeByp_remark" parameterType="String" resultType="com.shoppingkitten.entity.Privilege">
+        SELECT * FROM  privilege WHERE p_remark LIKE #{p_remark}
+    </select>
+</mapper>
