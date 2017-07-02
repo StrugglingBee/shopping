@@ -1,149 +1,149 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%--显示商品全部分类的tree--%>
-<%--<div>--%>
-    <%--<ul id="main_product_type_alltypes" class="easyui-tree" data-options="url:'/findTypes.do'">--%>
-    <%--</ul>--%>
-<%--</div>--%>
-<%--treegrid形式的商品分类可以进行增删改查--%>
-<div id="main_product_type_any">
-</div>
-<%--添加商品分类弹窗--%>
-<div id="type_window" class="easyui-window" data-options="closed:true,modal:true" style="width:300px;height:400px" title="添加分类">
-    <div style="width:100%;height:90%;padding:30px 30px">
-        <form id="ptbd">
-            <input id="main_product_type_id" type="hidden" name="id">
-            <input id="atype" type="text" name="text">
-        </form>
+<div  class="easyui-layout" data-options="fit:true">
+    <%--搜索栏--%>
+    <div id="main_product_type_searchbox" style="height: 80px;padding: 10px;" data-options="region:'north',collapsed:false,title:'检索栏'">
+        <input id="main_product_type_search" style="width:300px;" class="easyui-searchbox" data-options="searcher:searchproduct_type,prompt:'请输入关键词',menu:'#main_product_type_choice'"></input>
+        <div id="main_product_type_choice" style="width:120px;">
+            <div data-options="name:'text',iconCls:'icon-ok'">名称</div>
+        </div>
     </div>
-    <div style="display:flex;justify-content:center">
-        <a class="easyui-linkbutton" onclick="typeSave()">保 &nbsp;&nbsp;&nbsp;存</a>
+    <%--数据栏--%>
+    <div data-options="region:'center'">
+        <div id="main_product_type_any" data-options="title:'数据栏'"></div>
     </div>
 </div>
-<%--修改商品分类的弹窗--%>
-<div id="edittype_window" class="easyui-window" data-options="closed:true,modal:true" style="width:300px;height:400px" title="修改分类">
-    <div style="width:100%;height:90%;padding:30px 30px">
-        <form id="edptbd">
-            <input id="main_product_type_edid" type="hidden" name="id">
-            请输入要修改成的分类 <input id="etype" type="text" name="text">
-        </form>
+
+<!-- 添加角色弹窗 -->
+<div id="main_product_type_alert" class="easyui-window" data-options="closed:true,modal:true,title:'编辑类型'" style="width: 300px;height: 200px;">
+    <form id="main_product_type_form" class="form-group" style="margin: 10px;">
+        <input id="main_product_type_id" type="hidden" name="id" class="form-control">
+        <div class="input-group" style="margin-top: 20px;">
+            <span class="input-group-addon">名称：</span>
+            <input id="main_product_type_text" type="text" name="text" class="form-control">
+        </div>
+        <div id="main_product_type_rank" class="input-group" style="margin-top: 20px;margin-bottom: 10px;">
+            <span class="input-group-addon">级别：</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <input name="rank" type="radio" value="0" checked >&nbsp;&nbsp;同级&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <input name="rank" type="radio" value="1" >&nbsp;&nbsp;子级
+        </div>
+        <input id="main_product_type_pid" type="hidden" name="pid" class="form-control">
+    </form>
+    <div style="display:flex;justify-content:center;margin-top: 10px;">
+        <a class="easyui-linkbutton" href="javascript:product_typesave()" style="display: inline-block; width: 200px;height: 35px;">保 存</a>
     </div>
-    <div style="display:flex;justify-content:center">
-        <a class="easyui-linkbutton" onclick="typeEdit()">保 &nbsp;&nbsp;&nbsp;存</a>
-    </div>
+
 </div>
+
+
     <script type="text/javascript">
         //初始化
-        function init() {
-            $("#main_product_type_alltypes").tree({
-            });
+        function product_typeinit() {
             $("#main_product_type_any").treegrid({
-                title:"商品分类管理",
-                url:"/findTypes.do",
+//                url:"/findTypes.do",
                 idField:"id",
                 treeField:"text",
+                rownumbers:true,//是否显示行号
+                singleSelect:false,//单选,设置成true为单选
                 columns:
                     [[
                         {field:"id",title:"",width:100,checkbox:true},
-                        {field:"text",title:"类别",width:100},
-                        {field:"pid",title:"pid",width:100}
+                        {field:"text",title:"类别",width:500}
                     ]],
                 toolbar:[
-                    {text:"添加",iconCls:"icon-add",handler:function(){addType();}},
-                    {text:"修改",iconCls:"icon-edit",handler:function(){editType();}},
-                    {text:"删除",iconCls:"icon-remove",handler:function(){deleteType();}}
+                    {text:"添加",iconCls:"icon-add",handler:function(){addproduct_type();}},
+                    {text:"修改",iconCls:"icon-edit",handler:function(){editproduct_type();}},
+                    {text:"删除",iconCls:"icon-remove",handler:function(){deleteproduct_type();}}
                 ]
             });
+            //加载类型数据
+            loadproduct_type();
         }
-        $(init);
-        //删除商品分类
-        function deleteType(){
-            //获取选择的数据
-            var x=  $("#main_product_type_any").treegrid("getSelected");
-            //x非空,就是选择了要删除的数据
-            if(x){
-                $.get("/deletePtype.do",{id:x.id},function(d){
-                    location.reload(true);
-                });
-            }else{
-                //提示框
-                $.messager.alert("系统提示","请选择要删除的数据");
-            }
+        //加载数据
+        function loadproduct_type() {
+            $.getJSON("/findTypes.do",function (data) {
+                $("#main_product_type_any").treegrid("loadData",data);
+            })
         }
         //添加商品分类
-        function addType() {
+        function addproduct_type() {
             //获取选择的数据
-            var x=  $("#main_product_type_any").treegrid("getSelected");
+            var x=  $("#main_product_type_any").treegrid("getSelections");
             //x非空,就是选择了要添加分类
-            if(x){
-                var z=x.id;
-                $("#main_product_type_id").val(z);
+            if(x.length==1){
+                $("#main_product_type_id").val(x[0].id);
+                $("#main_product_type_text").val("");
+                $("#main_product_type_pid").val(x[0].pid);
+                $("#main_product_type_rank").show();//让级别DIV显示
                 //显示window
-                $("#type_window").window("open");
+                $("#main_product_type_alert").window("open");
             }else{
                 //提示框
-                $.messager.alert("系统提示","请选择要添加的分类");
+                $.messager.alert("系统提示","请选择一个分类");
             }
         }
         //添加保存商品分类
-       function typeSave(){
-           $("#type_window").window("close");
-         var y= $("#ptbd").serialize();
-           $.post("/addType.do",y,function(d){
-               location.reload(true);
-           });
-       }
-       //修改商品分类
-        function editType() {
-            //获取选择的数据
-            var x=  $("#main_product_type_any").treegrid("getSelected");
-            //x非空,选择修改
-            if(x){
-                var z=x.id;
-                //给id赋值给隐藏的输入框的id
-                $("#main_product_type_edid").val(z);
-                //显示window
-                $("#edittype_window").window("open");
-            }else{
-                //提示框
-                $.messager.alert("系统提示","请选择要修改的分类");
-            }
-        }
-        //修改保存商品分类
-      function typeEdit() {
-          $("#edittype_window").window("close");
-          var y= $("#edptbd").serialize();
-          $.post("/editType.do",y,function (d) {
-              location.reload(true);
-          });
-      }
-      //加载商品信息
-        function init2(){
-            $("#product_detaillist").datagrid({
-                title:"商品信息",
-                columns:[[
-                    {field:"id",title:"",width:100,checkbox:true},
-                    {field:"name",title:"商品名称",width:100},
-                    {field:"sale_price",title:"售价",width:100},
-                    {field:"price",title:"进价",width:100},
-                    {field:"stock",title:"库存",width:100},
-                    {field:"sale_total",title:"已售",width:100},
-                    {field:"create_time",title:"上架时间",width:100}
-                ]],
-                toolbar:[
-                    {text:"添加",iconCls:"icon-add",handler:function(){addProduct();}},
-                    {text:"修改",iconCls:"icon-edit",handler:function(){editProduct();}},
-                    {text:"删除",iconCls:"icon-remove",handler:function(){deleteProduct();}}
-                ]
+        function product_typesave(){
+            var y= $("#main_product_type_form").serialize();
+            $.post("/addType.do",y,function(d){
+                $("#main_product_type_alert").window("close");
+                //加载类型数据
+                loadproduct_type();
             });
         }
-        //添加商品
-        function addProduct(){
-            $.getJSON("/findTypes2.do"),function(d){
-                alert(d);
-            };
-        $("#product_alert").modal("show");
+
+        //修改商品分类
+        function editproduct_type() {
+            //获取选择的数据
+            var x=  $("#main_product_type_any").treegrid("getSelections");
+            //x非空,选择修改
+            if(x.length==1){
+                $("#main_product_type_id").val(x[0].id);
+                $("#main_product_type_text").val(x[0].text);
+                $("#main_product_type_pid").val(-1);
+                $("#main_product_type_rank").hide();
+                //显示window
+                $("#main_product_type_alert").window("open");
+            }else{
+                //提示框
+                $.messager.alert("系统提示","请选择一个分类");
+            }
         }
+
+        //删除商品分类
+        function deleteproduct_type(){
+            //获取选择的数据
+            var rows=  $("#main_product_type_any").treegrid("getSelections");
+            if (rows != "") {
+                //定义id数组
+                var ids = [];
+                //循环封装id
+                for (var i in rows) {
+                    ids[i] = rows[i].id;
+                }
+                //转换成JSON数据
+                var a = JSON.stringify(ids);
+                //异步请求
+                $.ajax({
+                    url: "/deletePtype.do",
+                    method: "post",
+                    data: a,
+                    contentType: "application/json",
+                    success: function (data) {
+                        loadproduct_type();
+                        $.messager.alert("系统提示", "删除数据成功！");
+                    }
+                });
+            } else {
+                $.messager.alert("系统提示", "请至少选择一条数据！");
+            }
+        }
+        //搜索功能
+        function searchproduct_type(value, name) {
+            $.getJSON("/searchproduct_type.do",{type:name,value:value},function (data) {
+                $("#main_product_type_any").treegrid("loadData",data);
+            });
+        }
+        $(product_typeinit);
     </script>
 
 

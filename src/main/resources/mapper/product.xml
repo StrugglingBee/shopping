@@ -3,10 +3,14 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.shoppingkitten.dao.ProductDao">
-    <!--根据商品的类别tid查询该类别的所有商品-->
-<select id="findProduct" resultType="com.shoppingkitten.entity.Product">
-    SELECT * FROM product WHERE tid=#{tid}
+    <!--根据商品的类别tid查询该类别的所有商品的个数-->
+<select id="findProductCountByType" resultType="int">
+    SELECT count(id) FROM product WHERE tid=#{tid}
 </select>
+    <!--根据商品类型分页查询-->
+    <select id="findProductByTypeAndLimit" parameterType="map" resultType="com.shoppingkitten.entity.Product">
+        select * from product where tid=#{tid} limit #{start},#{max}
+    </select>
     <!--添加商品-->
     <insert id="addProduct" parameterType="com.shoppingkitten.entity.Product">
   INSERT INTO  product(tid,name,sale_price,price,stock,face_image,descripe) VALUES(#{tid},#{name},#{sale_price},#{price},#{stock},#{face_image},#{descripe})
@@ -19,4 +23,29 @@
     <delete id="deleteproduct" >
         DELETE FROM  product WHERE id=#{id}
     </delete>
+    <!--修改商品-->
+    <update id="updateproduct">
+        update product set tid=#{tid},name=#{name},sale_price=#{sale_price},price=#{price},stock=#{stock},face_image=#{face_image},descripe=#{descripe} where id=#{id}
+    </update>
+    <!--批量删除商品-->
+    <delete id="deleteproducts" parameterType="int">
+        delete from product where id in
+        <foreach collection="list" item="id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+    <!--分页查询-->
+    <select id="findProductByLimit" parameterType="map" resultType="com.shoppingkitten.entity.Product">
+        select * from product limit #{start},#{max}
+    </select>
+    <!--查询所有的数据有多少条-->
+    <select id="findAllProduct" resultType="int">
+        select count(id) from product
+    </select>
+
+    <!--根据名称搜索-->
+    <select id="findProductByName" parameterType="String" resultType="com.shoppingkitten.entity.Product">
+        SELECT * FROM  product WHERE name LIKE #{name}
+    </select>
 </mapper>
