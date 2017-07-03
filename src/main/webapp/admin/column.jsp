@@ -17,11 +17,15 @@
 <!--添加栏目的弹窗 -->
 <div  title="栏目管理" data-options="modal:true,closed:true" id="column_window" class="easyui-window" style="width: 300px;padding: 10px;display: none">
 <form id="column_window_form"  method="post">
-    <input id="id" type="text" name="id" style="display: none">
-    名称:<input id="cname" type="text" name="name" style="width: 100%;height: 30px;padding-left: 5px"><br>
-    <a href="javascript:saveColumn()" class="easyui-linkbutton">保存</a>
-    <a href="#" class="easyui-linkbutton">取消</a>
+    <input id="main_column_id" type="text" name="id" style="display: none">
+    <div class="input-group">
+        <span class="input-group-addon">名称:</span>
+        <input id="main_column_name" class="form-control" type="text" name="name" style="width: 100%;height: 30px;padding-left: 5px">
+    </div>
 </form>
+    <div style="display:flex;justify-content:center;margin-top: 10px;">
+        <a class="easyui-linkbutton" href="javascript:saveColumn()" style="display: inline-block; width: 200px;height: 35px;">保 存</a>
+    </div>
 </div>
     <script >
         function  column_init() {
@@ -47,37 +51,38 @@
         $(column_init);
         //添加栏目
         function  addColumn(){
+            $("#main_column_name").val("");
+            $("#main_column_id").val(0);
             $("#column_window").window('open');
-            $("#id").val(0);
         }
         //添加弹窗里面的保存栏目按钮
         function saveColumn() {
             var a=$("#column_window_form").serialize();
-//            alert(a);
             $.post("/saveColumn.do",a,function () {
+                //重新加载数据。
+                findColumn();
                 $("#column_window").window('close')
             });
         }
         //修改栏目
         function editColumn() {
             var s=$("#column_datagrid").datagrid("getSelected");
-//            alert(s);
             if(s){
-                console.log(s);
-                $("#name").val(s.name);
-                $("#id").val(s.id);
+                $("#main_column_name").val(s.name);
+                $("#main_column_id").val(s.id);
                 $("#column_window").window('open');
             }else {
-                window.alert("系统提示,请选择一条数据")
+                $.messager.alert("系统提示","请选择一条数据")
             }
         }
 
         //删除
         function removeColumn () {
             var list=$("#column_datagrid").datagrid("getSelected");
-            alert(list);
             $.get("/removeColumn.do",list,function () {
-                alert("删除成功");
+                //重新加载数据。
+                findColumn();
+                $.messager.alert("系统提示", "删除成功！");
             })
         }
         //搜索
@@ -109,8 +114,6 @@
                 var c=$.parseJSON(data)//字符串解析成对象
                 //Stringify对象转字符串
                 $("#column_datagrid").datagrid("loadData",c);
-                $("#column_search").window('close');
-
             });
         }
 //        function  findColumnByPage(p,z) {

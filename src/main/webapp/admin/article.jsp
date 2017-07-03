@@ -49,7 +49,7 @@
                     }
                     },
                     {
-                        text:"修改",iconCls:"icon-editor",handler:function () {
+                        text:"修改",iconCls:"icon-edit",handler:function () {
                        editorArticle();
                     }
                     },
@@ -62,5 +62,7 @@
             });
         }
     $(articleinit());
+    function searchArticle(value,name) {
 
+    }
     </script>
