@@ -82,8 +82,12 @@ public class ResourceService {
     }
 
     //添加资源
-    public int addResource(Resource2 resource){
-        return rd.addResource(resource);
+    public int addResource1(Resource2 resource){
+        return rd.addResource1(resource);
+    };
+
+    public int addResource2(Resource2 resource){
+        return rd.addResource2(resource);
     };
     //修改资源
     public int updateResource(Resource2 resource){

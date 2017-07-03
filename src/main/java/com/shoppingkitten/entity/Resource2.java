@@ -13,6 +13,15 @@ public class Resource2 implements Serializable{
 	private boolean checked;
 	private Set<Resource2> children=new HashSet<Resource2>();
 	private int biaoji;
+	private int rank;
+
+	public int getRank() {
+		return rank;
+	}
+
+	public void setRank(int rank) {
+		this.rank = rank;
+	}
 
 	public int getBiaoji() {
 		return biaoji;

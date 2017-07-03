@@ -16,8 +16,10 @@ public interface ResourceDao {
     //根据角色ID查找拥有的权限
     ArrayList<Resource2> findResourceByRoleID(int rid);
 
-    //添加资源
-    int addResource(Resource2 resource);
+    //添加同级资源
+    int addResource1(Resource2 resource);
+    //添加子级资源
+    int addResource2(Resource2 resource);
     //修改资源
     int updateResource(Resource2 resource);
     //批量删除资源
