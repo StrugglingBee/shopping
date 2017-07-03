@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.shoppingkitten.dao.DistributionDao">
+    <!--根据省查询-->
+    <select id="findDistributionByProvince" parameterType="String" resultType="com.shoppingkitten.entity.Send_area_province">
+        SELECT * FROM  send_area_province WHERE province LIKE #{province}
+    </select>
+    <!--&lt;!&ndash;根据市搜索&ndash;&gt;-->
+    <!--<select id="findDistributionByCity" parameterType="String" resultType="com.shoppingkitten.entity.Send_area_city">-->
+        <!--SELECT * FROM  send_area_city WHERE city LIKE #{city}-->
+    <!--</select>-->
+    <!--查询省地区名称-->
+    <select id="findAllArea" resultType="com.shoppingkitten.entity.Send_area_province">
+       SELECT * FROM send_area_province
+    </select>
+    <!--查询市地区名称-->
+    <select id="findAllArea1" resultType="com.shoppingkitten.entity.Send_area_city">
+        SELECT * FROM send_area_city
+    </select>
+    <!--查询县地区名称-->
+    <select id="findAllArea2" resultType="com.shoppingkitten.entity.Send_area_county">
+        SELECT * FROM send_area_county
+    </select>
+    <!--查询所有的信息-->
+    <select id="findAllDistribution" resultType="com.shoppingkitten.entity.Send_distribution">
+        SELECT * FROM send_distribution
+    </select>
+    <!--添加信息-->
+    <insert id="addSend_distribution">
+        INSERT INTO Send_distribution(id,uid,province,city,county,town,township)VALUE (#{id},#{uid},#{province},#{city},#{county},#{town},#{township});
+    </insert>
+    <!--删除信息-->
+    <delete id="deleteSend_distribution" parameterType="int">
+        DELETE FROM send_distribution WHERE id in
+        <foreach collection="list" item="id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+    <!--修改信息-->
+    <update id="updateSend_distribution">
+        UPDATE send_distribution SET uid=#{uid},province=#{province},city=#{city},county=#{county},town=#{town},township=#{township} WHERE id=#{id}
+    </update>
+    <!--分页-->
+    <select id="findAllSend_distribution" parameterType="map" resultType="com.shoppingkitten.entity.Send_distribution">
+      SELECT * FROM send_distribution limit #{start},#{max}
+    </select>
+    <!--查询条数-->
+    <select id="findAllSend_distribution1" resultType="int">
+      SELECT COUNT(id) FROM send_distribution
+    </select>
+
+</mapper>

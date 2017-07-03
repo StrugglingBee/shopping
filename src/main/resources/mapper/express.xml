@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.shoppingkitten.dao.ExpressDao">
+    <!--根据ID查询-->
+    <select id="findExpressById" parameterType="String" resultType="com.shoppingkitten.entity.Send_address">
+        SELECT * FROM  send_address WHERE id LIKE #{id}
+    </select>
+    <!--添加物流信息-->
+    <insert id="addSend_address">
+        INSERT INTO send_address(id,uid,address,consignee_name,consignee_phone,code,logistics_name)VALUE (#{id},#{uid},#{address},#{consignee_name},#{consignee_phone},#{code},#{logistics_name});
+    </insert>
+    <!--查询所有的物流信息-->
+    <select id="findAllExpress" resultType="com.shoppingkitten.entity.Send_address">
+        SELECT * FROM send_address ;
+    </select>
+    <!--修改物流信息-->
+    <update id="updateSend_address">
+        UPDATE send_address SET uid=#{uid},address=#{address},consignee_name=#{consignee_name},consignee_phone=#{consignee_phone},code=#{code},logistics_name=#{logistics_name} WHERE id=#{id}
+    </update>
+    <!--删除物流信息-->
+    <delete id="deleteSend_address" parameterType="int">
+      DELETE FROM send_address WHERE id IN
+      <foreach collection="list" item="id"  open="(" separator="," close=")">
+          #{id}
+      </foreach>
+    </delete>
+    <!--分页-->
+    <select id="findAllSend_address" parameterType="map" resultType="com.shoppingkitten.entity.Send_address">
+      SELECT * FROM send_address limit #{start},#{max}
+    </select>
+    <!--查询所有的数据-->
+    <select id="findAllSend_express" resultType="int">
+    SELECT COUNT(id) FROM send_address
+    </select>
+</mapper>
