@@ -15,14 +15,16 @@
 
 
 <%--分配权限弹窗--%>
-<div id="main_role_privilege_alert" class="easyui-window" data-options="closed:true,modal:true">
+<div id="main_role_privilege_alert" class="easyui-window" data-options="closed:true,modal:true,title:'分配权限'">
     <h3 id="main_role_privilege_msg">请选择要分配的权限</h3>
     <div id="main_role_privilege_grid"></div>
-    <button id="main_role_privilege_btn" class="btn btn-success" onclick="privilegesave()">提交</button>
+    <div style="display:flex;justify-content:center;margin-top: 10px;">
+        <a class="easyui-linkbutton" href="javascript:privilegesave()" style="display: inline-block; width: 200px;height: 35px;">保 存</a>
+    </div>
 </div>
 
 <%--分配资源弹窗--%>
-<div id="main_role_resource_alert" style="width: 300px;height: 500px;" class="easyui-window" data-options="closed:true,modal:true">
+<div id="main_role_resource_alert" style="width: 300px;height: 500px;" class="easyui-window" data-options="closed:true,modal:true,title:'分配资源'">
     <h3 id="main_role_resource_msg" style="width: 250px;text-align: center;color: orangered;margin: 10px auto;">请选择要分配的资源</h3>
     <div id="main_role_resource_grid"></div>
     <div style="display:flex;justify-content:center;margin-top: 10px;">
@@ -40,7 +42,7 @@
 <%--</div>--%>
 
 <!-- 添加角色弹窗 -->
-<div id="main_role_alert" class="easyui-window" data-options="closed:true,modal:true">
+<div id="main_role_alert" class="easyui-window" data-options="closed:true,modal:true,title:'编辑角色'">
     <form id="main_role_form" class="form-group" style="margin: 10px;">
         <input id="main_role_rid" type="hidden" name="rid" class="form-control">
         <div class="input-group">
@@ -210,7 +212,7 @@
             columns: [[
                 {field: "pid", title: "", width: 100, checkbox: true},//添加选择框
                 {field: "p_name", title: "名称", width: 100},
-                {field: "p_remark", title: "说明", width: 300}
+                {field: "p_remark", title: "说明", width: 200}
             ]],
             onLoadSuccess: function (row) {//当表格成功加载时执行
                 var rowData = row.rows;//获取数据

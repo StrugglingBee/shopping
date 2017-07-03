@@ -31,9 +31,18 @@ public class PtypeService {
     public int deletePtype(int id){
         return  pd.deletePtype(id);
     }
-    //添加分类
-    public int addType(Product_type pt){
-        return  pd.addType(pt);
+
+    //批量删除
+    public int deletePtypes(ArrayList<Integer> ids){
+        return pd.deletePtypes(ids);
+    };
+    //添加同级分类
+    public int addType1(Product_type pt){
+        return  pd.addType1(pt);
+    }
+    //添加子分类
+    public int addType2(Product_type pt){
+        return  pd.addType2(pt);
     }
     //修改
     public int editType(Product_type pt){
@@ -41,7 +50,11 @@ public class PtypeService {
     }
     //找所有的商品分类
     public ArrayList<Product_type> findTypes2(){
-        System.out.println("hah");
          return pd.findTypes2();
     }
+
+    //根据名称搜索
+    public ArrayList<Product_type> findProduct_typeByText(String text){
+        return pd.findProduct_typeByText(text);
+    };
 }

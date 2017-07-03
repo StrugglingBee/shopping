@@ -11,8 +11,26 @@
     <delete id="deletePtype" >
       DELETE FROM  product_type WHERE id=#{id}
     </delete>
-    <!--添加分类-->
-    <insert id="addType" parameterType="com.shoppingkitten.entity.Product_type">
+
+    <!--删除角色-->
+    <delete id="deletePtypes" parameterType="int">
+        delete from product_type where id in
+        <foreach collection="list" item="id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+    <!--根据名称搜索-->
+    <select id="findProduct_typeByText" parameterType="String" resultType="com.shoppingkitten.entity.Product_type">
+        SELECT * FROM  product_type WHERE text LIKE #{text}
+    </select>
+
+    <!--添加同级分类-->
+    <insert id="addType1" parameterType="com.shoppingkitten.entity.Product_type">
+        INSERT INTO  product_type(text,pid) VALUES(#{text},#{pid})
+    </insert>
+    <!--添加子级分类-->
+    <insert id="addType2" parameterType="com.shoppingkitten.entity.Product_type">
         INSERT INTO  product_type(text,pid) VALUES(#{text},#{id})
     </insert>
     <!--修改分类-->

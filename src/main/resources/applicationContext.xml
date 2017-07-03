@@ -25,6 +25,14 @@
             </bean>
         </mvc:message-converters>
     </mvc:annotation-driven>
+    <!-- 配置静态资源 -->
+    <!--<mvc:resources mapping="/image/*" location="/upload/product_image/"></mvc:resources>-->
+
+    <!--上传用的文件解析器-->
+    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+        <property name="defaultEncoding" value="UTF-8"></property>
+        <property name="maxInMemorySize" value="102400000"></property>
+    </bean>
 
     <!-- 配置连接池 -->
     <bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource">

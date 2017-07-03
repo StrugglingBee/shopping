@@ -11,6 +11,16 @@ public class Product_type implements Serializable{
 	private String text;
 	private int pid;
 	private Set<Product_type> children=new HashSet<Product_type>();
+	private int rank;
+
+	public int getRank() {
+		return rank;
+	}
+
+	public void setRank(int rank) {
+		this.rank = rank;
+	}
+
 	public Product_type() {
 	}
 	public Product_type(int id, String text, int pid) {

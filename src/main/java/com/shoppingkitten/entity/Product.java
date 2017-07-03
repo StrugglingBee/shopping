@@ -4,32 +4,41 @@ package com.shoppingkitten.entity;
 import java.io.Serializable;
 import java.lang.String;
 
-public class Product implements Serializable{
+public class Product implements Serializable {
 	private int id;
 	private String name;
-	private float sale_price;
+	private double sale_price;
 	private int stock;
 	private int sale_total;
 	private int tid;
-	private float price;
+	private double price;
 	private String face_image;
 	private String descripe;
 	private String create_time;
+	private int total;
 
-	public Product(int id, String name, float sale_price, int stock, int sale_total, int tid, float price, String face_image, String descripe, String create_time) {
-		this.id = id;
-		this.name = name;
-		this.sale_price = sale_price;
-		this.stock = stock;
-		this.sale_total = sale_total;
-		this.tid = tid;
-		this.price = price;
-		this.face_image = face_image;
-		this.descripe = descripe;
-		this.create_time = create_time;
+	public int getTotal() {
+		return total;
 	}
 
-	public Product() {
+	public void setTotal(int total) {
+		this.total = total;
+	}
+
+	@Override
+	public String toString() {
+		return "Product{" +
+				"id=" + id +
+				", name='" + name + '\'' +
+				", sale_price=" + sale_price +
+				", stock=" + stock +
+				", sale_total=" + sale_total +
+				", tid=" + tid +
+				", price=" + price +
+				", face_image='" + face_image + '\'' +
+				", descripe='" + descripe + '\'' +
+				", create_time='" + create_time + '\'' +
+				'}';
 	}
 
 	public int getId() {
@@ -48,11 +57,11 @@ public class Product implements Serializable{
 		this.name = name;
 	}
 
-	public float getSale_price() {
+	public double getSale_price() {
 		return sale_price;
 	}
 
-	public void setSale_price(float sale_price) {
+	public void setSale_price(double sale_price) {
 		this.sale_price = sale_price;
 	}
 
@@ -80,11 +89,11 @@ public class Product implements Serializable{
 		this.tid = tid;
 	}
 
-	public float getPrice() {
+	public double getPrice() {
 		return price;
 	}
 
-	public void setPrice(float price) {
+	public void setPrice(double price) {
 		this.price = price;
 	}
 
@@ -110,5 +119,23 @@ public class Product implements Serializable{
 
 	public void setCreate_time(String create_time) {
 		this.create_time = create_time;
+	}
+
+	public Product(int id, String name, double sale_price, int stock, int sale_total, int tid, double price, String face_image, String descripe, String create_time) {
+
+		this.id = id;
+		this.name = name;
+		this.sale_price = sale_price;
+		this.stock = stock;
+		this.sale_total = sale_total;
+		this.tid = tid;
+		this.price = price;
+		this.face_image = face_image;
+		this.descripe = descripe;
+		this.create_time = create_time;
+	}
+
+	public Product() {
+
 	}
 }

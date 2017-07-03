@@ -1,7 +1,7 @@
 package com.shoppingkitten.controller;
 
 import com.shoppingkitten.entity.Manager;
-import com.shoppingkitten.entity.Privilege;
+import com.shoppingkitten.entity.Role;
 import com.shoppingkitten.service.ManagerService;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
@@ -38,10 +38,10 @@ public class ManagerController {
                 //登录验证
                 subject.login(token);
                 //获取管理员拥有的所有的权限
-                ArrayList<Privilege> privileges = ms.findPrivilegeByManager(m);
+                ArrayList<Role> roles = ms.findRolesByManager(m);
 
                 //把权限数组存入session中
-                session.setAttribute("privileges",privileges);
+                session.setAttribute("roles",roles);
                 rs="success";
             } catch (AuthenticationException e) {
                 rs="error";
