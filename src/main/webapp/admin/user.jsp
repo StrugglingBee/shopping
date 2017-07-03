@@ -14,8 +14,8 @@
                     pagination:true,
                     columns:[[
                         {field:"",title:"",width:100,checkbox:true},//添加选择框
-                        {field:"id",title:"id",width:100},
                         {field:"account",title:"账号",width:130},
+                        {field:"name",title:"姓名",width:130},
                         {field:"pwd",title:"密码",width:200},
                         {field:"email",title:"邮箱",width:150 },
                         {field:"phone",title:"电话",width:150},
@@ -23,19 +23,16 @@
                         {field:"login_count",title:"登录次数",width:100},
                         {field:"login_error",title:"登录错误次数",width:100},
                         {field:"create_ip",title:"注册ip地址",width:150},
-//                        {field:"id_code",title:"身份证号",width:250}
                     ]],
                     //工具栏
                     toolbar:[
                         {text:"添加",iconCls:"icon-add",handler:function(){adduser();}},
                         {text:"修改",iconCls:"icon-edit",handler:function(){edituser();}},
                         {text:"删除",iconCls:"icon-remove",handler:function(){removeuser();}},
-                        {text:"查找",iconCls:"icon-search",handler:function(){searchuser();}}
                     ],
 
-
                 });
-//            findalluser(1,5);
+//
             findUserByPage(1,5);
 
         }
@@ -44,11 +41,10 @@
 
         function findUserByPage(p,z) {
             $.get("/findUserByPage.do", {page: p, size: z}, function (data) {
-//                alert(data);
                 var d = $.parseJSON(data); //jQuery.parseJSON(jsonstr)
                 $("#user_datagrid").datagrid("loadData", d);
                 //获取分页对象
-                console.log(d[0].counts);
+//                console.log(d[0].counts);
                 var pager = $("#user_datagrid").datagrid("getPager");
                 pager.pagination({
 
@@ -73,7 +69,7 @@
         function removeuser(){
             var list= $("#user_datagrid").datagrid("getSelected");
 //            var list1=$.toString(list);
-            alert(list);
+//            alert(list);
             $.get("/removeUser.do",list,function(){
                 alert("删除成功");
             });
@@ -96,21 +92,11 @@
             }
         }
 
-        //开始查询弹出查询框
-        function searchuser(){
-            $("#user_search").window('open');
-        }
-
-        //根据账号查询用户
-        function searchUserByAccount(){
-           var user_account= $("#user_search_account").val();
-           alert(user_account);
-           console.log(user_account);
-           $.post("/searchUserByAccount.do",user_account,function (data) {
-               var d = $.parseJSON(data); //jQuery.parseJSON(jsonstr)
-               $("#user_datagrid").datagrid("loadData", d);
-               $("#user_search").window('close');
-           });
+        //进行查询
+        function searchuser(value,name){
+            $.getJSON("/searchUser.do",{type:name,value:value},function (data) {
+                $("#user_datagrid").datagrid("loadData",data);
+            });
         }
 
         //添加用户
@@ -129,17 +115,18 @@
             })
         }
     </script>
-
+<%--搜索框--%>
+<div id="user_search" style="width:300px;height: 80px;padding: 10px;"  >
+    <input class="easyui-searchbox" data-options="prompt:'请输入要搜索的内容',menu:'#mm',searcher:searchuser" style="width:100%">
+</div>
+<div id="mm">
+    <div data-options="name:'name',iconCls:'icon-ok'">姓名</div>
+    <div data-options="name:'account'">账号</div>
+</div>
 
 <%--表格--%>
 <div id="user_datagrid"></div>
-<%--搜索框--%>
-<div id="user_search" class="easyui-window" style="width: 300px ;padding:10px;" data-options="modal:true,closed:true">
 
-    <input id="user_search_account" type="text" name="user_account"style="width:100%;height:30px ;padding-left:5px"/>
-    <a href="javascript:searchUserByAccount()" class="easyui-linkbutton" >保存</a> <a href="#" class="easyui-linkbutton" >取消</a>
-
-</div>
 <%--添加用户的弹窗--%>
 <div id="user_window" class="easyui-window " style="width: 300px ;padding:10px;" data-options="modal:true,closed:true" title="用户信息管理">
     <form id="user_window_form" method="post">
@@ -155,7 +142,6 @@
             <br>
             <a href="javascript:saveUser()" class="easyui-linkbutton" >保存</a> <a href="#" class="easyui-linkbutton" >取消</a>
     </form>
-    <%--<div id="id" style="display: none;"></div>--%>
 </div>
 
 

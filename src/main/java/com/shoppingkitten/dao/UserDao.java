@@ -25,7 +25,8 @@ import java.util.HashMap;
 
     //根据账号查询用户
     ArrayList<User> searchUserByAccount(String account);
-
+//    根据姓名查询用户
+    ArrayList<User> searchUserByName(String name);
     //查询数据条数
     int findUserCounts();
     //保存页面新建的用户

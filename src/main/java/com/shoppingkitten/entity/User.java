@@ -9,6 +9,7 @@ public class User implements Serializable{
 	private int tid;
 	private String account;
 	private String pwd;
+	private String name;
 	private String pwd2;
 	private String email;
 	private String phone;
@@ -21,6 +22,55 @@ public class User implements Serializable{
 	private String status;
 	//用户总数
 	private int counts;
+
+	@Override
+	public String toString() {
+		return "User{" +
+				"id=" + id +
+				", tid=" + tid +
+				", account='" + account + '\'' +
+				", pwd='" + pwd + '\'' +
+				", name='" + name + '\'' +
+				", pwd2='" + pwd2 + '\'' +
+				", email='" + email + '\'' +
+				", phone='" + phone + '\'' +
+				", create_time='" + create_time + '\'' +
+				", login_count=" + login_count +
+				", login_error=" + login_error +
+				", create_ip='" + create_ip + '\'' +
+				", member_integral=" + member_integral +
+				", lock_time=" + lock_time +
+				", status='" + status + '\'' +
+				", counts=" + counts +
+				'}';
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public User(int id, int tid, String account, String pwd, String name, String pwd2, String email, String phone, String create_time, int login_count, int login_error, String create_ip, int member_integral, int lock_time, String status, int counts) {
+		this.id = id;
+		this.tid = tid;
+		this.account = account;
+		this.pwd = pwd;
+		this.name = name;
+		this.pwd2 = pwd2;
+		this.email = email;
+		this.phone = phone;
+		this.create_time = create_time;
+		this.login_count = login_count;
+		this.login_error = login_error;
+		this.create_ip = create_ip;
+		this.member_integral = member_integral;
+		this.lock_time = lock_time;
+		this.status = status;
+		this.counts = counts;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
 
 	public int getCounts() {
 		return counts;
@@ -162,23 +212,4 @@ public class User implements Serializable{
 		this.status = status;
 	}
 
-	@Override
-	public String toString() {
-		return "User{" +
-				"id=" + id +
-				", tid=" + tid +
-				", account='" + account + '\'' +
-				", pwd='" + pwd + '\'' +
-				", pwd2='" + pwd2 + '\'' +
-				", email='" + email + '\'' +
-				", phone='" + phone + '\'' +
-				", create_time='" + create_time + '\'' +
-				", login_count=" + login_count +
-				", login_error=" + login_error +
-				", create_ip='" + create_ip + '\'' +
-				", member_integral=" + member_integral +
-				", lock_time=" + lock_time +
-				", status='" + status + '\'' +
-				'}';
-	}
 }
