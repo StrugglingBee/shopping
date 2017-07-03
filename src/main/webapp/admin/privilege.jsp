@@ -14,8 +14,8 @@
     </div>
 </div>
 
-<!-- 添加角色弹窗 -->
-<div id="main_privilege_alert" class="easyui-window" data-options="closed:true,modal:true">
+<!-- 添加权限弹窗 -->
+<div id="main_privilege_alert" class="easyui-window" data-options="closed:true,modal:true,title:'编辑权限'">
     <form id="main_privilege_form" class="form-group" style="margin: 10px;">
         <input id="main_privilege_pid" type="hidden" name="pid" class="form-control">
         <div class="input-group">

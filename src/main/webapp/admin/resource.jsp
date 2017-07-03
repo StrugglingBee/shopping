@@ -14,8 +14,8 @@
     </div>
 </div>
 
-<!-- 添加角色弹窗 -->
-<div id="main_resource_alert" class="easyui-window" data-options="closed:true,modal:true">
+<!-- 添加资源弹窗 -->
+<div id="main_resource_alert" class="easyui-window" data-options="closed:true,modal:true,title:'编辑资源'">
     <form id="main_resource_form" class="form-group" style="margin: 10px;">
         <input id="main_resource_resource_id" type="hidden" name="resource_id" class="form-control">
         <div class="input-group">
@@ -25,6 +25,11 @@
         <div class="input-group">
             <span class="input-group-addon">URL：</span>
             <input id="main_resource_url" type="text" name="url" class="form-control">
+        </div>
+        <div id="main_resource_type_rank" class="input-group" style="margin-top: 20px;margin-bottom: 10px;">
+            <span class="input-group-addon">级别：</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <input name="rank" type="radio" value="0" checked >&nbsp;&nbsp;同级&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <input name="rank" type="radio" value="1" >&nbsp;&nbsp;子级
         </div>
         <input id="main_resource_parent_id" type="hidden" name="parent_id" class="form-control">
     </form>
@@ -91,6 +96,7 @@
             $("#main_resource_text").val("");//给ID赋值
             $("#main_resource_url").val("");//给ID赋值
             $("#main_resource_parent_id").val("");//给parent_id赋值
+            $("#main_resource_type_rank").show();//显示级别
         }
         //添加资源
         function addresource() {
@@ -98,7 +104,7 @@
             if (a.length==1) {
                 main_resource_alertinit();//弹窗初始化
                 $("#main_resource_parent_id").val(a[0].parent_id);//给parent_id赋值
-                $("#main_resource_resource_id").val(0);//给ID赋值
+                $("#main_resource_resource_id").val(a[0].resource_id);//给ID赋值
                 $("#main_resource_alert").window("open");//让弹窗显示
             } else {
                 $.messager.alert("系统提示", "请只选择一条数据！");
@@ -115,13 +121,15 @@
 
             });
         }
+        //修改资源
         function editresource() {
             var a = $("#resource_grid").datagrid("getSelections");//获取选中的数据
             if (a.length==1) {
                 $("#main_resource_resource_id").val(a[0].resource_id);//给ID赋值
                 $("#main_resource_text").val(a[0].text);//给名称赋值
                 $("#main_resource_url").val(a[0].url);//给url输入框赋值
-                $("#main_resource_parent_id").val(a[0].parent_id);//给parent_id输入框赋值
+                $("#main_resource_parent_id").val(-1);//给parent_id输入框赋值
+                $("#main_resource_type_rank").hide();
                 $("#main_resource_alert").window("open");//让弹窗显示
             } else {
                 $.messager.alert("系统提示", "请只选择一条数据！");

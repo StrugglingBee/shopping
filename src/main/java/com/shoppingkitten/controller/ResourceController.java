@@ -23,6 +23,8 @@ public class ResourceController {
         ArrayList<Resource2> resources = rs.findResourceByprivilege(pid);
         return resources;
     }
+
+
     //根据父节点ID查找子节点资源
     @RequestMapping("findResourceByPid.do")
     @ResponseBody
@@ -55,11 +57,16 @@ public class ResourceController {
     public int addResource(Resource2 resource){
         int result=0;
         if (resource!=null){
-            int resource_id =resource.getResource_id();
-            if (resource_id==0){
-                result= rs.addResource(resource);
+            int parent_id =resource.getParent_id();
+            if (parent_id!=-1){
+                int rank=resource.getRank();
+                if(rank==0){
+                    result=rs.addResource1(resource);//添加同级资源
+                }else {
+                    result=rs.addResource2(resource);//添加子级资源
+                }
             }else {
-                result=rs.updateResource(resource);
+                result=rs.updateResource(resource);//更新资源
             }
         }
 

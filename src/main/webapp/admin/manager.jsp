@@ -17,38 +17,41 @@
 </div>
 
 <%--分配角色弹窗--%>
-<div id="main_manger_role_alert" class="easyui-window" data-options="closed:true,modal:true">
+<div id="main_manger_role_alert" class="easyui-window" data-options="closed:true,modal:true,title:'分配角色'">
     <h3 id="main_manger_role_msg">请选择要分配的角色</h3>
     <div id="main_manager_role_grid"></div>
-    <button id="main_manager_role_btn" class="btn btn-success" onclick="rolesave()">提交</button>
+    <div style="display:flex;justify-content:center;margin-top: 10px;">
+        <a class="easyui-linkbutton" href="javascript:manager_rolesave()" style="display: inline-block; width: 200px;height: 35px;">保 存</a>
+    </div>
 </div>
 <!-- 添加账号弹窗 -->
-<div id="main_manger_alert" class="easyui-window" data-options="closed:true,modal:true">
+<div id="main_manger_alert" class="easyui-window" data-options="closed:true,modal:true,title:'编辑账号'">
     <form id="main_manger_form" class="form-group" style="margin: 10px;">
         <input id="main_manger_mid" type="hidden" name="mid" class="form-control">
         <div class="input-group">
-            <span class="input-group-addon">昵称：</span>
+            <span class="input-group-addon">昵 &nbsp;&nbsp;&nbsp;称:</span>
             <input id="main_manger_nick_name" type="text" name="nick_name" class="form-control">
         </div>
         <div class="input-group">
-            <span class="input-group-addon">账号：</span>
+            <span class="input-group-addon">账 &nbsp;&nbsp;&nbsp;号:</span>
             <input id="main_manger_account" type="text" name="account" class="form-control">
         </div>
         <div class="input-group">
-            <span class="input-group-addon">密码：</span>
+            <span class="input-group-addon">密 &nbsp;&nbsp;&nbsp;码:</span>
             <input id="main_manger_pwd" type="password" name="pwd" class="form-control">
         </div>
         <div class="input-group">
-            <span class="input-group-addon">电话：</span>
+            <span class="input-group-addon">电 &nbsp;&nbsp;&nbsp;话:</span>
             <input id="main_manger_phone" type="text" name="phone" class="form-control">
         </div>
         <div class="input-group">
-            <span class="input-group-addon">身份证：</span>
+            <span class="input-group-addon">身份证:</span>
             <input id="main_manger_id_code" type="text" name="id_code" class="form-control">
         </div>
     </form>
-    <a class="btn btn-success btn-block" href="javascript:managersave()">保存</a>
-
+    <div style="display:flex;justify-content:center;margin-top: 10px;">
+        <a class="easyui-linkbutton" href="javascript:managersave()" style="display: inline-block; width: 200px;height: 35px;">保 存</a>
+    </div>
 </div>
 
 
@@ -190,7 +193,6 @@
         //获取要删除的数据
         var rows = $("#manager_grid").datagrid("getSelections");
         if (rows != "") {
-            alert(rows);
             //定义mid数组
             var mids = [];
             //循环封装mid
@@ -235,7 +237,7 @@
         });
     }
     //分配角色提交
-    function rolesave() {
+    function manager_rolesave() {
         //获取账号
         var manager = $("#manager_grid").datagrid("getSelected");
         //获取选择的角色
