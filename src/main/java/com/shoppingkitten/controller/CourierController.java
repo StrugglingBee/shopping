@@ -87,7 +87,7 @@ public class CourierController {
         ArrayList<Address_courier> rs=null;
         if (value!=null&&type!=null){
             switch (type){
-                case "id"://按照省份搜索
+                case "name"://按照省份搜索
                     value="%"+value+"%";
                     rs=cs.findCourierById(value);
                     break;

@@ -2,7 +2,7 @@
 <div style="margin:20px 0;"></div>
 <input class="easyui-searchbox" data-options="prompt:'Please Input Value',menu:'#mm',searcher:searchcourier" style="width:300px"></input>
 <div id="mm">
-    <div data-options="name:'id',iconCls:'icon-ok'">ID</div>
+    <div data-options="name:'name',iconCls:'icon-ok'">名称</div>
     <%--<div data-options="name:'city'">市区</div>--%>
     <%--<div data-options="name:'county'">县</div>--%>
     <%--<div data-options="name:'id'">ID</div>--%>
@@ -15,7 +15,7 @@
 
 
 <!--添加弹出窗口-->
-<div id="courier_alert" class="easyui-window" data-options="closed:true,modal:true">
+<div id="courier_alert" style="width: 350px;height: 300px;" class="easyui-window" data-options="closed:true,modal:true">
     <form id="courier_form" class="form-group" style="margin: 10px;">
 
         <input id="courier_id" type="hidden" name="id" class="form-control">
@@ -24,15 +24,10 @@
             <span class="input-group-addon">快递名称：</span>
             <input id="courier_name" type="text" name="name" class="form-control">
         </div>
-
-        <div class="input-group">
-            <span class="input-group-addon">时间：</span>
-            <input id="courier_date" type="text" name="date" class="form-control">
-        </div>
-
-
     </form>
-    <a class="btn btn-success btn-block" href="javascript:courier_save()">保存</a>
+    <div style="display:flex;justify-content:center;margin-top: 10px;">
+        <a class="easyui-linkbutton" href="javascript:courier_save()" style="display: inline-block; width: 200px;height: 35px;">保 存</a>
+    </div>
 </div>
 
 <script>
@@ -43,9 +38,8 @@
             columns:[[
 
                 {field:"",width:100,checkbox:true},
-                {field:"id",title:"id",width:100},
                 {field:"name",title:"快递名称",width:100},
-                {field:"date",title:"时间",width:100}
+                {field:"time",title:"时间",width:200}
 
             ]],
             toolbar:[
@@ -83,8 +77,9 @@
 
     //添加
     function addAddress_courier(){
-        $("#courier_alert").window("open");
         $("#courier_id").val(0);
+        $("#courier_name").val("");
+        $("#courier_alert").window("open");
 
     }
     //查询
@@ -102,8 +97,6 @@
         if(a){
             $("#courier_id").val(a.id);
             $("#courier_name").val(a.name);
-            $("#courier_date").val(a.date);
-
             $("#courier_alert").window("open");
         }else {
             $.messager.alert("系统提示","请选择一条数据!");

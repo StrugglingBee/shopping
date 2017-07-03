@@ -13,9 +13,9 @@ import java.util.HashMap;
 public class CourierService {
     @Resource
     private CourierDao cd;
-    //根据省查询
-    public ArrayList<Address_courier> findCourierById(String id){
-        return cd.findCourierById(id);
+    //根据名称查询
+    public ArrayList<Address_courier> findCourierById(String name){
+        return cd.findCourierById(name);
     };
     //添加物流信息
     public int addAddress_courier(Address_courier address_courier){return cd.addAddress_courier(address_courier);};

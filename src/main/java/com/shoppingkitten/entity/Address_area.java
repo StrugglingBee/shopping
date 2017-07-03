@@ -8,14 +8,14 @@ public class Address_area {
     private String name;
     private int pid;
     private int lable;
-    private int bank;
+    private int rank;
 
-    public int getBank() {
-        return bank;
+    public int getRank() {
+        return rank;
     }
 
-    public void setBank(int bank) {
-        this.bank = bank;
+    public void setRank(int rank) {
+        this.rank = rank;
     }
 
     public Address_area() {

@@ -3,35 +3,8 @@ package com.shoppingkitten.entity;
 public class Address_courier {
     private int id;
     private String name;
-    private int date;
+    private String time;
     private int total;
-
-    public int getTotal() {
-        return total;
-    }
-
-    public void setTotal(int total) {
-        this.total = total;
-    }
-
-    @Override
-    public String toString() {
-        return "Address_courier{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", date=" + date +
-                '}';
-    }
-
-    public Address_courier(int id, String name, int date) {
-        this.id = id;
-        this.name = name;
-        this.date = date;
-    }
-
-    public Address_courier() {
-        super();
-    }
 
     public int getId() {
         return id;
@@ -49,11 +22,30 @@ public class Address_courier {
         this.name = name;
     }
 
-    public int getDate() {
-        return date;
+    public String getTime() {
+        return time;
     }
 
-    public void setDate(int date) {
-        this.date = date;
+    public void setTime(String time) {
+        this.time = time;
+    }
+
+    public int getTotal() {
+        return total;
+    }
+
+    public void setTotal(int total) {
+        this.total = total;
+    }
+
+    public Address_courier() {
+
+    }
+
+    public Address_courier(int id, String name, String time, int total) {
+        this.id = id;
+        this.name = name;
+        this.time = time;
+        this.total = total;
     }
 }

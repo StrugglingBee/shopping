@@ -18,10 +18,6 @@ public class AreaController {
     @ResponseBody
     public ArrayList<Address_area> findAllArea4(){
         ArrayList<Address_area> list = as.findAllArea4();
-        for (Address_area s:list
-             ) {
-            System.out.println(s.toString());
-        }
         return list;
     }
     //刷新
@@ -44,7 +40,7 @@ public class AreaController {
         if (aa!=null){
             int pid=aa.getPid();
             if (pid!=-1){
-                int rank=aa.getBank();
+                int rank=aa.getRank();
                 if (rank==0){
                     result=as.addArea(aa);
                 }else{

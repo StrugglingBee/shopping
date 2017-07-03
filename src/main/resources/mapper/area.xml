@@ -21,7 +21,7 @@
     </insert>
     <!--添加子级分类-->
     <insert id="addArea1" parameterType="com.shoppingkitten.entity.Address_area">
-        INSERT INTO  address_area(name,pid，lable) VALUES(#{name},#{id},#{lable})
+        INSERT INTO  address_area(name,pid,lable) VALUES(#{name},#{id},#{lable})
     </insert>
     <!--修改分类-->
     <update id="editArea" parameterType="com.shoppingkitten.entity.Address_area">

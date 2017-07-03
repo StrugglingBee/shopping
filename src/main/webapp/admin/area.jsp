@@ -19,17 +19,11 @@
             <span class="input-group-addon">名称：</span>
             <input id="address_area_name" type="text" name="name" class="form-control">
         </div>
-
-
-
         <div id="addrss_area_rank" class="input-group" style="margin-top: 20px;margin-bottom: 10px;">
             <span class="input-group-addon">级别：</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             <input name="rank" type="radio" value="0" checked >&nbsp;&nbsp;同级&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             <input name="rank" type="radio" value="1" >&nbsp;&nbsp;子级
         </div>
-
-
-
         <input id="address_area_pid" type="hidden" name="pid" class="form-control">
     </form>
     <div style="display:flex;justify-content:center;margin-top: 10px;">
@@ -40,12 +34,9 @@
 <script>
     //初始化
     function init() {
-        $("#inquireArea").tree({
-
-        });
         $("#address_area").treegrid({
             title:"配送地区管理",
-            url:"/findAllAe.do",
+//            url:"/findAllAe.do",
             idField:"id",
             treeField:"name",
             rownumbers:true,
@@ -53,9 +44,7 @@
             columns:
                 [[
                     {field:"id",title:"",width:100,checkbox:true},
-                    {field:"name",title:"类别",width:100},
-                    {field:"pid",title:"pid",width:100},
-                    {field:"lable",title:"lable",width:100}
+                    {field:"name",title:"类别",width:500}
                 ]],
             toolbar:[
                 {text:"添加",iconCls:"icon-add",handler:function(){addArea();}},
@@ -63,14 +52,13 @@
                 {text:"删除",iconCls:"icon-remove",handler:function(){deleteArea();}}
             ]
         });
+        inquireArea();
     }
     $(init);
     //查询
     function inquireArea() {
-        $.get("/findAllAe.do",function (list) {
-            var data=$.parseJSON(list);
-//            console.log(data);
-            $("#Area_grid").datagrid("loadData",data);
+        $.getJSON("/findAllAe.do",function (data) {
+            $("#address_area").treegrid("loadData",data);
         })
 
     }
@@ -81,7 +69,7 @@
         //x非空,就是选择了要删除的数据
         if(x){
             $.get("/deleteArea.do",{id:x.id},function(d){
-                location.reload(true);
+                inquireArea();
             });
         }else{
             //提示框
@@ -98,7 +86,7 @@
             $("#address_area_id").val(x[0].id);
             $("#address_area_name").val("");
             $("#address_area_pid").val(x[0].pid);
-            $("#address_area_lable").show();
+            $("#addrss_area_rank").show();
             //显示window
             $("#address_area_alert").window("open");
         }else{
@@ -111,8 +99,9 @@
     function address_area_save(){
         var y= $("#address_area_form").serialize();
         $.post("/addarea.do",y,function(d){
+            //加载数据
+            inquireArea();
             $("#address_area_alert").window("close");
-            //加载类型数据
 
         });
     }
@@ -125,7 +114,7 @@
             $("#address_area_id").val(x[0].id);
             $("#address_area_name").val(x[0].name);
             $("#address_area_pid").val(-1);
-            $("#address_area_rank").hide();
+            $("#addrss_area_rank").hide();
             //显示window
             $("#address_area_alert").window("open");
         }else{
@@ -140,11 +129,5 @@
             $("#address_area").treegrid("loadData",data);
         });
 
-    }
-    //加载数据
-    function loadaddress_area() {
-        $.getJSON("/findArea1.do",function (data) {
-            $("#address_area").treegrid("loadData",data);
-        })
     }
 </script>

@@ -7,8 +7,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 @Repository
 public interface CourierDao {
-    //根据ID查询
-    ArrayList<Address_courier> findCourierById(String id);
+    //根据name查询
+    ArrayList<Address_courier> findCourierById(String name);
     //添加物流信息
     int addAddress_courier(Address_courier address_courier);
     //查询数据库所有物流信息

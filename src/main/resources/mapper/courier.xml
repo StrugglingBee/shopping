@@ -3,13 +3,13 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.shoppingkitten.dao.CourierDao">
-    <!--根据ID查询-->
+    <!--根据名称查询-->
     <select id="findCourierById" parameterType="String" resultType="com.shoppingkitten.entity.Address_courier">
-        SELECT * FROM  address_courier WHERE id LIKE #{id}
+        SELECT * FROM  address_courier WHERE name LIKE #{name}
     </select>
     <!--添加物流信息-->
     <insert id="addAddress_courier">
-        INSERT INTO address_courier (id,name,date)VALUE (#{id},#{name},#{date})
+        INSERT INTO address_courier (name)VALUE (#{name})
     </insert>
     <!--查询所有的物流信息-->
     <select id="findAllCourier" resultType="com.shoppingkitten.entity.Address_courier">
@@ -17,7 +17,7 @@
     </select>
     <!--修改物流信息-->
     <update id="updateAddress_courier">
-        UPDATE address_courier SET name=#{name},date=#{date} WHERE id=#{id}
+        UPDATE address_courier SET name=#{name} WHERE id=#{id}
     </update>
     <!--删除物流信息-->
     <delete id="deleteAddress_courier" parameterType="int">
