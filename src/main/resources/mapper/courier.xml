@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.shoppingkitten.dao.CourierDao">
+    <!--根据ID查询-->
+    <select id="findCourierById" parameterType="String" resultType="com.shoppingkitten.entity.Address_courier">
+        SELECT * FROM  address_courier WHERE id LIKE #{id}
+    </select>
+    <!--添加物流信息-->
+    <insert id="addAddress_courier">
+        INSERT INTO address_courier (id,name,date)VALUE (#{id},#{name},#{date})
+    </insert>
+    <!--查询所有的物流信息-->
+    <select id="findAllCourier" resultType="com.shoppingkitten.entity.Address_courier">
+        SELECT * FROM address_courier ;
+    </select>
+    <!--修改物流信息-->
+    <update id="updateAddress_courier">
+        UPDATE address_courier SET name=#{name},date=#{date} WHERE id=#{id}
+    </update>
+    <!--删除物流信息-->
+    <delete id="deleteAddress_courier" parameterType="int">
+        DELETE FROM address_courier WHERE id IN
+        <foreach collection="list" item="id"  open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+    <!--分页-->
+    <select id="findAllAddress_courier" parameterType="map" resultType="com.shoppingkitten.entity.Address_courier">
+        SELECT * FROM address_courier limit #{start},#{max}
+    </select>
+    <!--查询所有的数据-->
+    <select id="findAllAddress_courier1" resultType="int">
+        SELECT COUNT(id) FROM address_courier
+    </select>
+</mapper>

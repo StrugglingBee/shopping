@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.shoppingkitten.dao.AreaDao">
+    <!--查询所有的信息-->
+    <select id="findAllArea4" resultType="com.shoppingkitten.entity.Address_area">
+        SELECT * FROM address_area ;
+    </select>
+    <!--刷新页面信息-->
+    <select id="findAllArea5" resultType="com.shoppingkitten.entity.Address_area">
+        SELECT * FROM address_area ;
+    </select>
+    <!--删除指定的分类-->
+    <delete id="deleteArea" >
+        DELETE FROM  address_area WHERE id=#{id}
+    </delete>
+    <!--添加同级分类-->
+    <insert id="addArea" parameterType="com.shoppingkitten.entity.Address_area">
+        INSERT INTO  address_area(name,pid,lable) VALUES(#{name},#{pid},#{lable})
+    </insert>
+    <!--添加子级分类-->
+    <insert id="addArea1" parameterType="com.shoppingkitten.entity.Address_area">
+        INSERT INTO  address_area(name,pid，lable) VALUES(#{name},#{id},#{lable})
+    </insert>
+    <!--修改分类-->
+    <update id="editArea" parameterType="com.shoppingkitten.entity.Address_area">
+        UPDATE address_area set name=#{name} where id=#{id}
+    </update>
+    <!--根据名称搜索-->
+    <select id="findAddress_areaByName" parameterType="String" resultType="com.shoppingkitten.entity.Address_area">
+        SELECT * FROM  address_area WHERE name LIKE #{name}
+    </select>
+</mapper>
