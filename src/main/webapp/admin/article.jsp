@@ -32,6 +32,7 @@
         <button class="btn btn-success" onclick="saveArticle()">保存</button>
     </div>
     <script type="text/javascript">
+
         CKEDITOR.replace("text");
 
         function  articleinit() {
@@ -49,7 +50,7 @@
                     }
                     },
                     {
-                        text:"修改",iconCls:"icon-editor",handler:function () {
+                        text:"修改",iconCls:"icon-edit",handler:function () {
                        editorArticle();
                     }
                     },
@@ -62,5 +63,7 @@
             });
         }
     $(articleinit());
+    function searchArticle(value,name) {
 
+    }
     </script>
