@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.shoppingkitten.dao.ColumnDao">
+    <!--分页查询所有栏目 -->
+    <!--<select id="findCloumnByPage" parameterType="map" resultType="com.shoppingkitten.entity.Column">-->
+        <!--select * from  column limit #{start},#{end}-->
+    <!--</select>-->
+    <!--&lt;!&ndash; 查询总数&ndash;&gt;-->
+    <!--<select id="findColumnCounts" resultType="int">-->
+        <!--SELECT  count (id) FROM  column-->
+    <!--</select>-->
+    <!-- 查询所有栏目-->
+    <select id="findColumn"  resultType="com.shoppingkitten.entity.Column">
+        select * from `column`
+    </select>
+    <!--添加保存栏目 -->
+    <insert id="saveColumn" >
+          insert into `column` (name) VALUE (#{name});
+    </insert>
+    <!--更新数据 -->
+    <update id="updateColumn">
+        update `column` set name=#{name} where id=#{id}
+    </update>
+    <!-- 删除栏目-->
+    <delete id="removeColumn">
+        delete from `column` where #{id}=id;
+    </delete>
+    <!-- 根据名称查找栏目 -->
+    <select parameterType="String" id="findColumnByName" resultType="com.shoppingkitten.entity.Column">
+        SELECT * from `column` where name LIKE #{name};
+    </select>
+    <!-- 根据id查找栏目-->
+    <select parameterType="String" id="findColumnById" resultType="com.shoppingkitten.entity.Column">
+        select * from `column` where id LIKE  #{id};
+    </select>
+</mapper>

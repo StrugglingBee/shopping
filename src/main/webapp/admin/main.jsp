@@ -19,6 +19,7 @@
 
     <script type="text/javascript" src="/js/jquery.js"></script>
     <script type="text/javascript" src="/js/easyui.js"></script>
+    <script type="text/javascript" src="/ckeditor/ckeditor.js"></script>
     <script type="text/javascript">
         //初始化操作。
         function init() {

@@ -5,10 +5,10 @@ import java.io.Serializable;
 import java.lang.String;
 
 public class Article implements Serializable{
-	public int id;
-	public String text;
-	public String images;
-	public String title;
+	private int id;
+	private String text;
+	private String images;
+	private String title;
 
 	public Article() {
 	}
