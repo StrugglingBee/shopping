@@ -32,6 +32,7 @@
         <button class="btn btn-success" onclick="saveArticle()">保存</button>
     </div>
     <script type="text/javascript">
+
         CKEDITOR.replace("text");
 
         function  articleinit() {
