@@ -5,18 +5,29 @@ import java.io.Serializable;
 import java.lang.String;
 
 public class User_type implements Serializable{
-	public int id;
-	public String type_name;
-	public int integral_start;
-	public int integral_end;
-	public float menber_power;
+	private int tid;
+	private String type_name;
+	private int integral_start;
+	private int integral_end;
+	private float menber_power;
 
-	public int getId() {
-		return id;
+	@Override
+	public String toString() {
+		return "User_type{" +
+				"tid=" + tid +
+				", type_name='" + type_name + '\'' +
+				", integral_start=" + integral_start +
+				", integral_end=" + integral_end +
+				", menber_power=" + menber_power +
+				'}';
 	}
 
-	public void setId(int id) {
-		this.id = id;
+	public int getTid() {
+		return tid;
+	}
+
+	public void setTid(int tid) {
+		this.tid = tid;
 	}
 
 	public String getType_name() {
@@ -55,12 +66,13 @@ public class User_type implements Serializable{
 
 	}
 
-	public User_type(int id, String type_name, int integral_start, int integral_end, float menber_power) {
+	public User_type(int tid, String type_name, int integral_start, int integral_end, float menber_power) {
 
-		this.id = id;
+		this.tid = tid;
 		this.type_name = type_name;
 		this.integral_start = integral_start;
 		this.integral_end = integral_end;
 		this.menber_power = menber_power;
 	}
+
 }
