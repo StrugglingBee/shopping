@@ -7,16 +7,15 @@
     <link rel="stylesheet" href="/css/icon.css" />
     <link rel="stylesheet" href="/css/easyui.css" />
     <%--主页面的CSS样式--%>
-    <link rel="stylesheet" href="/css/main.css"/>
+    <link rel="stylesheet" href="/admin_css/main.css"/>
     <%--管理员页面CSS样式--%>
-    <link rel="stylesheet" href="/css/main_manager.css">
+    <link rel="stylesheet" href="/admin_css/main_manager.css">
     <%--角色管理页面Css样式--%>
-    <link rel="stylesheet" href="/css/main_role.css">
+    <link rel="stylesheet" href="/admin_css/main_role.css">
     <%--权限管理页面Css样式--%>
-    <link rel="stylesheet" href="/css/main_privilege.css">
+    <link rel="stylesheet" href="/admin_css/main_privilege.css">
     <%--资源管理页面Css样式--%>
-    <link rel="stylesheet" href="/css/main_resource.css">
-
+    <link rel="stylesheet" href="/admin_css/main_resource.css">
     <script type="text/javascript" src="/js/jquery.js"></script>
     <script type="text/javascript" src="/js/easyui.js"></script>
     <script type="text/javascript" src="/ckeditor/ckeditor.js"></script>
@@ -37,7 +36,7 @@
 
         function loaddata(a) {
             //根据权限查找拥有的资源
-            $.getJSON("/findResourceByPrivilege.do",{pid:a},function (data) {
+            $.getJSON("/findResourceByRole.do",{rid:a},function (data) {
                 for(var i in data){
                     $("#main_left").accordion("add",{
                         //添加
@@ -98,14 +97,14 @@
     <div class="input-group">
         <span class="input-group-addon">角色:</span>
         <select id="manger_role" class="form-control" name="manger_role">
-            <c:forEach items="${privileges }" var="p">
-                <option  value="${p.pid}">${p.role_name }</option>
+            <c:forEach items="${roles }" var="r">
+                <option  value="${r.rid}">${r.name }</option>
             </c:forEach>
         </select>
     </div>
-    <button class="btn btn-success btn-block" onclick="select()">确定</button>
-
-
+    <div style="display:flex;justify-content:center;margin-top: 10px;">
+        <a class="easyui-linkbutton" href="javascript:select()" style="display: inline-block; width: 200px;height: 35px;">保 存</a>
+    </div>
 </div>
 </body>
 </html>

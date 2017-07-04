@@ -5,7 +5,7 @@
     <link rel="stylesheet" href="/css/bootstrap.css">
     <link rel="stylesheet" href="/css/icon.css" />
     <link rel="stylesheet" href="/css/easyui.css" />
-    <script src="/js/gVerify.js"></script>
+    <script src="/before_js/gVerify.js"></script>
     <script type="text/javascript" src="/js/jquery.js"></script>
     <script type="text/javascript" src="/js/easyui.js"></script>
     <style>

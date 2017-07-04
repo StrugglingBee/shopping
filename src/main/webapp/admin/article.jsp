@@ -8,7 +8,6 @@
                 <div data-options="name:'text'">简介</div>
                 <div data-options="name:'title'">标题</div>
             </div>
-
         </div>
         <!-- 数据栏-->
         <div data-options="region:'center'">

@@ -17,10 +17,10 @@ public class ResourceController {
     private ResourceService rs;//注入资源
 
     //根据权限ID查找根节点资源
-    @RequestMapping("findResourceByPrivilege.do")
+    @RequestMapping("findResourceByRole.do")
     @ResponseBody
-    public List<Resource2> findResourceByprivilege(int pid){
-        ArrayList<Resource2> resources = rs.findResourceByprivilege(pid);
+    public List<Resource2> findResourceByRole(int rid){
+        ArrayList<Resource2> resources = rs.findResourceByRole(rid);
         return resources;
     }
 

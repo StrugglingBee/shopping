@@ -10,8 +10,8 @@
     </select>
 
     <!--根据权限ID查找根节点资源-->
-    <select id="findResourceByprivilege" resultType="com.shoppingkitten.entity.Resource2">
-        select r.* from resource r left join privilege_resource pr on r.resource_id=pr.resource_id where pr.pid=#{pid} and r.parent_id=0
+    <select id="findResourceByRole" resultType="com.shoppingkitten.entity.Resource2">
+        select r.* from resource r left join role_resource rr on r.resource_id=rr.resource_id where rr.rid=#{rid} and r.parent_id=0
     </select>
     <!--根据父节点查找子节点资源-->
     <select id="findResourceByPid" resultType="com.shoppingkitten.entity.Resource2">

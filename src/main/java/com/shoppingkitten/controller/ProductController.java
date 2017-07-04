@@ -60,7 +60,7 @@ public class ProductController {
             int month = cal.get(Calendar.MONTH) + 1;
             //获取年份
             int year = cal.get(Calendar.YEAR);
-            String ym = year + month + "/";
+            String ym ="" +year + month + "/";
             //文件路径
             String filePath = rootPath + ym;
             //创建文件

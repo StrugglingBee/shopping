@@ -13,9 +13,9 @@ public class ResourceService {
     @Resource
     private ResourceDao rd;//注入资源
 
-    //根据权限ID查找根节点资源
-    public ArrayList<Resource2> findResourceByprivilege(int pid){
-        return rd.findResourceByprivilege(pid);
+    //根据角色ID查找根节点资源
+    public ArrayList<Resource2> findResourceByRole(int rid){
+        return rd.findResourceByRole(rid);
     }
 
 
