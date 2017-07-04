@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.shoppingkitten.dao.ArticleDao">
+    <!-- 读取数据-->
+    <select id="findArticle" resultType="com.shoppingkitten.entity.Article">
+        select * from article
+    </select>
+    <!-- 添加保存文章-->
+    <insert id="saveArticle">
+        insert into `article` (title,text) VALUES  (#{title},#{text});
+    </insert>
+    <!-- 更新数据-->
+    <update id="updateArticle">
+        update `article` SET title=#{title},text=#{text} where id=#{id}
+    </update>
+    <!--删除文章-->
+    <delete id="removeArticle">
+        DELETE  FROM `article` where id=#{id}
+    </delete>
+    <!-- 根据名称查找文章-->
+    <select id="findArticleByTitle" resultType="com.shoppingkitten.entity.Article">
+        SELECT  * FROM  `article` where title LIKE  #{title}
+    </select>
+    <!-- 根据text查找文章-->
+    <select id="findArticleByText" resultType="com.shoppingkitten.entity.Article">
+        SELECT  * from `article` where text like #{text}
+    </select>
+</mapper>
