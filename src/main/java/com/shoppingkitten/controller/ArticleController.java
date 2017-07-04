@@ -9,10 +9,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
+import java.util.List;
 
-/**
- * Created by Administrator on 2017/7/3 0003.
- */
 @Controller
 public class ArticleController {
     @Resource
@@ -39,8 +37,14 @@ public class ArticleController {
     //删除文章
     @RequestMapping("removeArticle.do")
     @ResponseBody
-    public int removeArticle(Article article) {
-        return as.removeArticle(article);
+    public int removeArticle(@RequestBody List<Integer> id) {
+        int rs = 0;
+        if (id != null) {
+            //转化成ArrayList
+            ArrayList<Integer> ids = (ArrayList<Integer>) id;
+            rs = as.removeArticle(ids );
+        }
+        return rs;
     }
     //查找文章
     @RequestMapping("searchArticle.do")

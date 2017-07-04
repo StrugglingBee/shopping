@@ -1,7 +1,4 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<script type="text/javascript" src="../ckeditor/ckeditor.js"></script>
-
 <div  class="easyui-layout" data-options="fit:true">
     <%--左侧类型栏--%>
     <div id="main_product_left" style="width: 15%;" data-options="region:'west',collapsed:false,title:'类型栏'">
@@ -68,7 +65,7 @@
         </div>
         <div class="input-group" style="margin: 10px;">
             <span class="input-group-addon">描述</span>
-            <textarea rows="2" cols="2" name="product_descripe" class="ckeditor"></textarea>
+            <textarea rows="2" cols="2" id="product_descripe" name="product_descripe" ></textarea>
         </div>
         <input id="main_product_id" type="hidden" class="form-control" name="id">
     </form>
@@ -121,17 +118,15 @@
         product_typeinit();//商品类型树初始化
         loadproductdata(1, 5);
         main_product_alert_typeinit();//弹窗商品类型下拉框初始化
+        //加载富文本编辑器
+        CKEDITOR.replace('product_descripe');
     }
     //加载商品类型数据
     function product_typeinit() {
         $("#main_product_type_alltypes").tree({
             onClick: function (node) {
                 var tid = node.id;
-//                $.getJSON("/findProduct.do", {tid: dd}, function (d) {
-//                    $("#main_product_data").datagrid("loadData", d);
-//                });
                 loadProductByType(tid,1, 5);//加载信息
-
             }
         });
     }
@@ -232,7 +227,6 @@
         //获取要删除的数据
         var rows = $("#main_product_data").datagrid("getSelections");
         if (rows != "") {
-            alert(rows);
             //定义mid数组
             var ids = [];
             //循环封装mid

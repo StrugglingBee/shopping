@@ -1,5 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+
 <html>
 <head>
     <title>后台管理页面</title>
@@ -18,6 +19,7 @@
     <link rel="stylesheet" href="/admin_css/main_resource.css">
     <script type="text/javascript" src="/js/jquery.js"></script>
     <script type="text/javascript" src="/js/easyui.js"></script>
+    <%--引入富文本编辑器--%>
     <script type="text/javascript" src="/ckeditor/ckeditor.js"></script>
     <script type="text/javascript">
         //初始化操作。

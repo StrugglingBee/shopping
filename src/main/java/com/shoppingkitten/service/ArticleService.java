@@ -27,8 +27,8 @@ public class ArticleService {
         return  ad.updateArticle(article);
     }
     //删除文章
-    public  int removeArticle(Article article){
-        return  ad.removeArticle(article);
+    public  int removeArticle(ArrayList<Integer> ids){
+        return  ad.removeArticle(ids);
     }
 
     //根据title查找文章

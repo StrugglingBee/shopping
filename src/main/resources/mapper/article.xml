@@ -16,8 +16,11 @@
         update `article` SET title=#{title},text=#{text} where id=#{id}
     </update>
     <!--删除文章-->
-    <delete id="removeArticle">
-        DELETE  FROM `article` where id=#{id}
+    <delete id="removeArticle" parameterType="int">
+        delete from article where id in
+        <foreach collection="list" item="id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
     </delete>
     <!-- 根据名称查找文章-->
     <select id="findArticleByTitle" resultType="com.shoppingkitten.entity.Article">

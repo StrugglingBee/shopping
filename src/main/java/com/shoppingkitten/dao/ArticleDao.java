@@ -13,7 +13,7 @@ public interface ArticleDao {
     //更新文章
     int updateArticle(Article article);
     //删除文章
-    int removeArticle(Article article);
+    int removeArticle(ArrayList<Integer> ids);
     //根据title查找文章
     ArrayList<Article> findArticleByTitle(String title);
     //根据text查找文章
