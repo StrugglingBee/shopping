@@ -205,7 +205,7 @@
         fd.append("descripe", x)
         //异步提交数据
         $.ajax({
-            url:"/addabcdefg.do",//发送的地址
+            url:"/addproduct.do",//发送的地址
             method:"post",//发送的方式
             data:fd,//发送的数据
             contentType: false,//发送数据到服务器时所使用的内容类型

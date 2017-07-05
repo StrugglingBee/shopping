@@ -24,7 +24,7 @@
     <script type="text/javascript">
         //初始化操作。
         function init() {
-            <%--//获取管理员拥有的权限数量--%>
+            //获取管理员拥有的权限数量
             <%--var x=${roles.size()};--%>
             <%--//如果数量大于1就显示弹窗--%>
             <%--if(x>1){--%>

@@ -45,7 +45,7 @@ public class ProductController {
 
 
     //添加商品
-    @RequestMapping("addabcdefg.do")
+    @RequestMapping("addproduct.do")
     @ResponseBody
     public int addProduct(@RequestParam("face_image") MultipartFile file, HttpServletRequest req,
                           String id, String tid, String name, String sale_price, String price, String stock, String descripe) {

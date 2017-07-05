@@ -1,0 +1,15 @@
+*{
+    margin: 0px;
+    padding: 0px;
+}
+#index_header{
+    width:1280px;
+    height:200px;
+    border: 1px solid orange;
+}
+
+#index_footer{
+    width:1280px;
+    height:300px;
+    border: 1px solid orange;
+}
