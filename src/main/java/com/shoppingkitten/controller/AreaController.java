@@ -29,7 +29,7 @@ public class AreaController {
     //删除
     @RequestMapping("deleteArea.do")
     @ResponseBody
-    public int deletePtype(int id){
+    public int deleteArea(int id){
         return as.deleteArea(id);
     }
     //添加分类

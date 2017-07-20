@@ -188,7 +188,7 @@
             $("#main_product_stock").val(ps[0].stock);
             $("#main_product_tid").val(ps[0].tid);
            CKEDITOR.instances.product_descripe.setData(ps[0].descripe);
-           var html="<img src='"+"http://10.8.159.43:8080/upload/product_image/"+ps[0].face_image+"' style='width:150px;height:150px;'/>";
+           var html="<img src='"+"http://127.0.0.1:8080/upload/product_image/"+ps[0].face_image+"' style='width:150px;height:150px;'/>";
            $("#main_product_face").html(html);
             $("#main_product_alert").window("open");
         } else {
@@ -269,7 +269,7 @@
         //value：该字段的值
         //row：一行对象
         //index:数组下标
-        return  "<img src='http://10.8.159.43:8080/upload/product_image/"+value+"' style='width:50px;height:50px;'/>";
+        return  "<img src='http://127.0.0.1:8080/upload/product_image/"+value+"' style='width:50px;height:50px;'/>";
     }
     //分页查找所有的商品
     function loadproductdata(p, z) {

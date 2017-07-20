@@ -12,6 +12,7 @@
        http://www.springframework.org/schema/mvc/spring-mvc.xsd
 ">
     <context:component-scan base-package="com.shoppingkitten"></context:component-scan>
+
     <mvc:annotation-driven>
         <!-- 消息转换器 -->
         <mvc:message-converters>
@@ -37,7 +38,7 @@
     <!-- 配置连接池 -->
     <bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource">
         <property name="driverClassName" value="com.mysql.jdbc.Driver"></property>
-        <property name="url" value="jdbc:mysql://10.8.159.43:3306/shoppingkitten"></property>
+        <property name="url" value="jdbc:mysql://127.0.0.1:3306/shoppingkitten"></property>
         <property name="username" value="root"></property>
         <property name="password" value="root"></property>
     </bean>
@@ -58,7 +59,7 @@
     <!--配置视图控制器-->
     <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
         <!--开始-->
-        <property name="prefix" value="/WEB-INF/jsp/"></property>
+        <property name="prefix" value="/"></property>
         <!--结束-->
         <property name="suffix" value=".jsp"></property>
     </bean>
@@ -75,8 +76,8 @@
         <property name="userRolesQuery" value="select name from manager_role left join role using(rid)
         left join manager using(mid) where account=?"></property>
         <!--权限验证语句-->
-        <property name="permissionsQuery" value="select p_name from role_privilege left join role using(rid)
-         left join privilege using(pid) where name=?"></property>
+        <property name="permissionsQuery" value="select p.p_name from privilege p left join role_privilege using(pid) left join role r using(rid)
+          where r.name=?"></property>
     </bean>
     <!--缓存管理器-->
     <bean id="cacheManager" class="org.apache.shiro.cache.MemoryConstrainedCacheManager"></bean>
@@ -85,6 +86,7 @@
         <property name="realm" ref="jdbcRealm"></property>
         <property name="cacheManager" ref="cacheManager"></property>
     </bean>
+
     <!--过滤器-->
     <bean id="shiro" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
         <property name="securityManager" ref="securityManager"></property>
@@ -95,8 +97,8 @@
         <!--配置保护的资源-->
         <property name="filterChainDefinitions">
             <value>
-                <!--/admin/**=authc-->
-                <!--/admin/main.jsp=authc-->
+                /admin/login.jsp=anon
+                /admin/**=authc
                 /**=anon
             </value>
         </property>
@@ -107,23 +109,24 @@
 
 
     <!--注解方式权限控制，需要添加的配置-->
-    <!--<bean class="org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator" depends-on="lifecycleBeanPostProcessor"></bean>-->
-    <!--<bean class="org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor"></bean>-->
-    <!--<bean class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">-->
-        <!--<property name="exceptionMappings">-->
-            <!--<props>-->
-                <!--&lt;!&ndash;无权限直接访问方法捕获的异常处理方法&ndash;&gt;-->
-                <!--<prop key="java.lang.UnauthorizedException">-->
-                    <!--redirect:tonoqx.do-->
-                <!--</prop>-->
-                <!--<prop key="">-->
-                    <!--redirect:tonoqx.do-->
-                <!--</prop>-->
-                <!--&lt;!&ndash;所有错误捕获的异常处理方法&ndash;&gt;-->
+    <bean class="org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator" depends-on="lifecycleBeanPostProcessor"></bean>
+    <bean class="org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor"></bean>
+    <bean class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
+        <property name="exceptionMappings">
+            <props>
+                <!--无权访问错误-->
+                <prop key="org.apache.shiro.authz.UnauthorizedException">
+                    redirect:noqx.jsp
+                </prop>
+                <!--未登录错误-->
+                <prop key="org.apache.shiro.authz.UnauthenticatedException">
+                    redirect:/admin/login.jsp
+                </prop>
+                <!--所有错误捕获的异常处理方法-->
                 <!--<prop key="java.lang.Exception">-->
-                    <!--redirect:tologin.do-->
+                    <!--redirect:error.jsp-->
                 <!--</prop>-->
-            <!--</props>-->
-        <!--</property>-->
-    <!--</bean>-->
+            </props>
+        </property>
+    </bean>
 </beans>

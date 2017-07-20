@@ -99,7 +99,7 @@
 
         });
         //加载管理员数据
-        loadmanager(1, 5);
+        loadmanager(1, 10);
         //角色表格初始化
         manager_roleinit();
         //加载所有的角色数据

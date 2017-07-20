@@ -6,6 +6,7 @@ import com.shoppingkitten.service.ManagerService;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.UsernamePasswordToken;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.apache.shiro.subject.Subject;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -23,6 +24,7 @@ import java.util.List;
 public class ManagerController {
     @Resource
     private ManagerService ms;
+
     //管理员登录验证
     @RequestMapping("mangerlogin.do")
     @ResponseBody
@@ -37,10 +39,10 @@ public class ManagerController {
             try {
                 //登录验证
                 subject.login(token);
-                //获取管理员拥有的所有的权限
-                ArrayList<Role> roles = ms.findRolesByManager(m);
+                //获取管理员拥有的所有的角色
 
-                //把权限数组存入session中
+                ArrayList<Role> roles = ms.findRolesByManager(m);
+                //把角色数组存入session中
                 session.setAttribute("roles",roles);
                 rs="success";
             } catch (AuthenticationException e) {
@@ -49,10 +51,19 @@ public class ManagerController {
         }
         return rs;
     }
-
+    //退出登录
+    @RequestMapping("exitAdmin.do")
+    public String exitAdmin(HttpSession session){
+        //销毁session
+        session.invalidate();
+        //跳转到主页
+        return "index";
+    }
     //分页查询管理员
     @RequestMapping("manager.do")
     @ResponseBody
+//    @RequiresRoles("超级管理员")//角色权限
+    @RequiresPermissions({"manager:manager:select"})
     public ArrayList<Manager> findAllManager(int page,int size){
         ArrayList<Manager> managers=null;
         if (page>0&&size>0){
@@ -76,6 +87,7 @@ public class ManagerController {
     //添加管理员
     @RequestMapping("saveOrUpdateManager.do")
     @ResponseBody
+//    @RequiresPermissions({"manager:manager:add"})
     public int addManager(Manager manager){
         int rs=0;
         int mid = manager.getMid();
@@ -90,6 +102,7 @@ public class ManagerController {
     //删除管理员
     @RequestMapping("removemanager.do")
     @ResponseBody
+//    @RequiresPermissions({"manager:manager:remove"})
     public int removeManagers(@RequestBody List<Integer> mid){
         int rs=0;
         if(mid!=null){
@@ -103,6 +116,7 @@ public class ManagerController {
     //分配角色
     @RequestMapping("insertRoleByManagerID.do")
     @ResponseBody
+//    @RequiresPermissions({"manager:manager:role"})
     public int insertRoleByManagerID(@RequestBody ArrayList<HashMap<String, Integer>> maps){
         int rs=0;
         int rid=maps.get(0).get("rid");
@@ -117,6 +131,7 @@ public class ManagerController {
     //搜索方法
     @RequestMapping("searchManager.do")
     @ResponseBody
+//    @RequiresPermissions({"manager:manager:search"})
     public ArrayList<Manager> searchManager(String type,String value){
         ArrayList<Manager> rs=null;
         if (value!=null&&type!=null){

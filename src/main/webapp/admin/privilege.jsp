@@ -42,8 +42,8 @@
             pagination: true,//显示分页属性
             columns: [[
                 {field: "pid", title: "", width: 100, checkbox: true},//添加选择框
-                {field: "p_name", title: "名称", width: 100},
-                {field: "p_remark", title: "备注", width: 100}
+                {field: "p_name", title: "名称", width: 200},
+                {field: "p_remark", title: "备注", width: 300}
             ]],
             //工具栏
             toolbar: [

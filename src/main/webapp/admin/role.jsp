@@ -1,4 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@taglib prefix="shiro" uri="http://shiro.apache.org/tags" %>
 <div  class="easyui-layout" data-options="fit:true">
     <%--搜索栏--%>
     <div id="main_role_searchbox" style="height: 80px;padding: 10px;" data-options="region:'north',collapsed:false,title:'检索栏'">
@@ -87,6 +88,7 @@
                     removerole();
                 }
                 },
+                <shiro:hasPermission name="manager:manager">
                 {
                     text: "分配权限", iconCls: "icon-man", handler: function () {
                     powerprivilege();
@@ -97,6 +99,8 @@
                     powerresource();
                 }
                 }
+                </shiro:hasPermission>
+
             ]
 
         });
